@@ -187,6 +187,19 @@ stages:
           DotNet.Root: /usr/local/share/dotnet/
           DotNet.Tools: ~/.dotnet/tools
         steps:
+          - task: xamops.azdevex.provisionator-task.provisionator@1
+            displayName: 'Provision Xcode'
+            condition: ne(variables['REQUIRED_XCODE'], '')
+            inputs:
+              provisioning_script: '$(System.DefaultWorkingDirectory)/eng/provisioning/xcode.csx'
+
+          - task: xamops.azdevex.provisionator-task.provisionator@1
+            displayName: 'Provisionator'
+            condition: eq(variables['provisioning'], 'true')
+            inputs:
+              provisioning_script: '$(System.DefaultWorkingDirectory)/eng/provisioning/provisioning.csx'
+              provisioning_extra_args: '--v'
+
           - task: UseDotNet@2
             displayName: install .NET Core 3.1
             inputs:
@@ -300,6 +313,19 @@ stages:
             release:
               BuildConfiguration:  'Release'
         steps:
+          - task: xamops.azdevex.provisionator-task.provisionator@1
+            displayName: 'Provision Xcode'
+            condition: ne(variables['REQUIRED_XCODE'], '')
+            inputs:
+              provisioning_script: '$(System.DefaultWorkingDirectory)/eng/provisioning/xcode.csx'
+
+          - task: xamops.azdevex.provisionator-task.provisionator@1
+            displayName: 'Provisionator'
+            condition: eq(variables['provisioning'], 'true')
+            inputs:
+              provisioning_script: '$(System.DefaultWorkingDirectory)/eng/provisioning/provisioning.csx'
+              provisioning_extra_args: '--v'
+              
           - task: UseDotNet@2
             displayName: install .NET Core 3.1
             inputs:
