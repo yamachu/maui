@@ -16,7 +16,7 @@ steps:
 
     - script: |
         echo "##vso[task.prependpath]/Library/Frameworks/Mono.framework/Versions/Current/Commands/"
-        echo "##vso[task.prependpath]~/Library/Developer/Xamarin/android-sdk-macosx"
+        echo "##vso[task.prependpath]~/Library/Developer/Xamarin/android-sdk-macosx/tools/android"
       displayName: 'Setup SDK Paths'
       condition: ne(variables['osx2019VmPool'], 'Azure Pipelines')
 
