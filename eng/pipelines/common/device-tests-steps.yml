@@ -24,7 +24,6 @@ steps:
       displayName: 'Install an Apple certificate'
       inputs:
         certSecureFile: 'XamarinForms.p12'
-    #     certSecureFile: 'Xamarin Forms iOS Certificate.p12'
         certPwd: $(P12password)
 
     - task: InstallAppleProvisioningProfile@1
@@ -50,7 +49,13 @@ steps:
     inputs:
       version: $(DOTNET_VERSION)
       packageType: 'sdk'
-
+  
+  - task: Bash@3
+    displayName: 'Print env variables'
+    inputs:
+      targetType: 'inline'
+      script: printenv
+  
   - pwsh: |
       ./build.ps1 --target=BuildTasks --BUILD_CONFIGURATION=Debug --Build_ArtifactStagingDirectory="$(Build.ArtifactStagingDirectory)"
     name: winbuild
