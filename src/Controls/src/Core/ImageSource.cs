@@ -145,7 +145,7 @@ namespace Microsoft.Maui.Controls
 			}
 		}
 
-		protected void OnSourceChanged()
+		private protected void OnSourceChanged()
 		{
 			_weakEventManager.HandleEvent(this, EventArgs.Empty, nameof(SourceChanged));
 		}
