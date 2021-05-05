@@ -1,6 +1,4 @@
-using System;
 using System.Threading.Tasks;
-using Microsoft.Maui.DeviceTests.Stubs;
 using Xunit;
 
 namespace Microsoft.Maui.DeviceTests
@@ -11,9 +9,24 @@ namespace Microsoft.Maui.DeviceTests
 		[InlineData()]
 		public async Task SetAutomationId()
 		{
-			var view = new TStub();
-			view.AutomationId = "TestId";
-			var id = await GetValueAsync((IView)view, handler => GetAutomationId(handler));
+			var view = new TStub
+			{
+				AutomationId = "TestId"
+			};
+			var id = await GetValueAsync(view, handler => GetAutomationId(handler));
+			Assert.Equal(view.AutomationId, id);
+		}
+
+		[Theory(DisplayName = "FlowDirection is set correctly")]
+		[InlineData(FlowDirection.LeftToRight)]
+		[InlineData(FlowDirection.RightToLeft)]
+		public async Task SetFlowDirection(FlowDirection flowDirection)
+		{
+			var view = new TStub
+			{
+				FlowDirection = flowDirection
+			};
+			var id = await GetValueAsync(view, handler => GetFlowDirection(handler));
 			Assert.Equal(view.AutomationId, id);
 		}
 
@@ -23,7 +36,7 @@ namespace Microsoft.Maui.DeviceTests
 		{
 			var view = new TStub();
 			view.Semantics.Description = "Test";
-			var id = await GetValueAsync((IView)view, handler => GetSemanticDescription(handler));
+			var id = await GetValueAsync(view, handler => GetSemanticDescription(handler));
 			Assert.Equal(view.Semantics.Description, id);
 		}
 
@@ -37,7 +50,7 @@ namespace Microsoft.Maui.DeviceTests
 		{
 			var view = new TStub();
 			view.Semantics.Description = "Test";
-			var id = await GetValueAsync((IView)view, handler => GetSemanticDescription(handler));
+			var id = await GetValueAsync(view, handler => GetSemanticDescription(handler));
 			Assert.Equal(view.Semantics.Description, id);
 		}
 
@@ -47,7 +60,7 @@ namespace Microsoft.Maui.DeviceTests
 		{
 			var view = new TStub();
 			view.Semantics.HeadingLevel = SemanticHeadingLevel.Level1;
-			var id = await GetValueAsync((IView)view, handler => GetSemanticHeading(handler));
+			var id = await GetValueAsync(view, handler => GetSemanticHeading(handler));
 			Assert.Equal(view.Semantics.HeadingLevel, id);
 		}
 
@@ -55,10 +68,12 @@ namespace Microsoft.Maui.DeviceTests
 		[InlineData()]
 		public async Task NullSemanticsClass()
 		{
-			var view = new TStub();
-			view.Semantics = null;
-			view.AutomationId = "CreationFailed";
-			var id = await GetValueAsync((IView)view, handler => GetAutomationId(handler));
+			var view = new TStub
+			{
+				Semantics = null,
+				AutomationId = "CreationFailed"
+			};
+			var id = await GetValueAsync(view, handler => GetAutomationId(handler));
 			Assert.Equal(view.AutomationId, id);
 		}
 	}

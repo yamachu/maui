@@ -31,6 +31,11 @@ namespace Microsoft.Maui
 		public static void UpdateBackgroundColor(this Panel nativeControl, Color color, UI.Xaml.Media.Brush? defaultBrush = null) =>
 			nativeControl.Background = color?.ToNative() ?? defaultBrush ?? nativeControl.Background;
 
+		public static void UpdateFlowDirection(this FrameworkElement nativeView, IView view)
+		{
+
+		}
+
 		public static void UpdateAutomationId(this FrameworkElement nativeView, IView view) =>
 			AutomationProperties.SetAutomationId(nativeView, view.AutomationId);
 
