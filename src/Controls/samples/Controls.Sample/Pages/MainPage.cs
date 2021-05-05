@@ -39,13 +39,13 @@ namespace Maui.Controls.Sample.Pages
 		}
 
 		const string loremIpsum =
-				"Lorem ipsum dolor sit amet, consectetur adipiscing elit. " +
-				"Quisque ut dolor metus. Duis vel iaculis mauris, sit amet finibus mi. " +
-				"Etiam congue ornare risus, in facilisis libero tempor eget. " +
-				"Phasellus mattis mollis libero ut semper. In sit amet sapien odio. " +
-				"Sed interdum ullamcorper dui eu rutrum. Vestibulum non sagittis justo. " +
-				"Cras rutrum scelerisque elit, et porta est lobortis ac. " +
-				"Pellentesque eu ornare tortor. Sed bibendum a nisl at laoreet.";
+			"Lorem ipsum dolor sit amet, consectetur adipiscing elit. " +
+			"Quisque ut dolor metus. Duis vel iaculis mauris, sit amet finibus mi. " +
+			"Etiam congue ornare risus, in facilisis libero tempor eget. " +
+			"Phasellus mattis mollis libero ut semper. In sit amet sapien odio. " +
+			"Sed interdum ullamcorper dui eu rutrum. Vestibulum non sagittis justo. " +
+			"Cras rutrum scelerisque elit, et porta est lobortis ac. " +
+			"Pellentesque eu ornare tortor. Sed bibendum a nisl at laoreet.";
 
 		void SetupMauiLayout()
 		{
@@ -88,6 +88,7 @@ namespace Maui.Controls.Sample.Pages
 			verticalStack.Add(new Label { Text = loremIpsum, LineBreakMode = LineBreakMode.TailTruncation });
 			verticalStack.Add(new Label { Text = loremIpsum, MaxLines = 2, LineBreakMode = LineBreakMode.TailTruncation });
 			verticalStack.Add(new Label { Text = "This should have five times the line height! " + loremIpsum, LineHeight = 5, MaxLines = 2 });
+			verticalStack.Add(new Label { FlowDirection = FlowDirection.RightToLeft, Text = "RightToLeft FlowDirection" });
 
 			SemanticProperties.SetHeadingLevel((BindableObject)verticalStack.Children.Last(), SemanticHeadingLevel.Level2);
 
