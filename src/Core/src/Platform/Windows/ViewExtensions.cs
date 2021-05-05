@@ -3,6 +3,7 @@ using Microsoft.Maui.Graphics;
 using Microsoft.UI.Xaml;
 using Microsoft.UI.Xaml.Automation;
 using Microsoft.UI.Xaml.Controls;
+using WFlowDirection = Microsoft.UI.Xaml.FlowDirection;
 
 namespace Microsoft.Maui
 {
@@ -54,7 +55,10 @@ namespace Microsoft.Maui
 
 		public static void UpdateFlowDirection(this FrameworkElement nativeView, IView view)
 		{
-
+			if (view.FlowDirection.IsRightToLeft())
+				nativeView.FlowDirection = WFlowDirection.RightToLeft;
+			else if (view.FlowDirection.IsLeftToRight())
+				nativeView.FlowDirection = WFlowDirection.LeftToRight;
 		}
 
 		public static void UpdateAutomationId(this FrameworkElement nativeView, IView view) =>
