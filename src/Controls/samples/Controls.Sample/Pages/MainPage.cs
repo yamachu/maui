@@ -136,6 +136,13 @@ namespace Maui.Controls.Sample.Pages
  				0.3f)
 			});
 
+			verticalStack.Add(new Label { Text = loremIpsum });
+			verticalStack.Add(new Label { Text = loremIpsum, MaxLines = 2 });
+			verticalStack.Add(new Label { Text = loremIpsum, LineBreakMode = LineBreakMode.TailTruncation });
+			verticalStack.Add(new Label { Text = loremIpsum, MaxLines = 2, LineBreakMode = LineBreakMode.TailTruncation });
+			verticalStack.Add(new Label { Text = "This should have five times the line height! " + loremIpsum, LineHeight = 5, MaxLines = 2 });
+			verticalStack.Add(new Label { FlowDirection = FlowDirection.RightToLeft, Text = "RightToLeft FlowDirection" });
+
 			SemanticProperties.SetHeadingLevel((BindableObject)verticalStack.Children.Last(), SemanticHeadingLevel.Level2);
 
 			var visibleClearButtonEntry = new Entry() { ClearButtonVisibility = ClearButtonVisibility.WhileEditing, Placeholder = "This Entry will show clear button if has input." };
@@ -558,3 +565,4 @@ namespace Maui.Controls.Sample.Pages
 		}
 	}
 }
+
