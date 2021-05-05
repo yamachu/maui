@@ -27,7 +27,7 @@ namespace Microsoft.Maui.DeviceTests
 				FlowDirection = flowDirection
 			};
 			var id = await GetValueAsync(view, handler => GetFlowDirection(handler));
-			Assert.Equal(view.AutomationId, id);
+			Assert.Equal(view.FlowDirection, id);
 		}
 
 		[Fact(DisplayName = "Semantic Description is set correctly")]
