@@ -88,7 +88,7 @@ namespace Maui.Controls.Sample.Pages
 			verticalStack.Add(new Label { Text = loremIpsum, LineBreakMode = LineBreakMode.TailTruncation });
 			verticalStack.Add(new Label { Text = loremIpsum, MaxLines = 2, LineBreakMode = LineBreakMode.TailTruncation });
 			verticalStack.Add(new Label { Text = "This should have five times the line height! " + loremIpsum, LineHeight = 5, MaxLines = 2 });
-			verticalStack.Add(new Label { FlowDirection = FlowDirection.RightToLeft, Text = "RightToLeft FlowDirection" });
+			verticalStack.Add(new Label { FlowDirection = Microsoft.Maui.Controls.FlowDirection.RightToLeft, Text = "RightToLeft FlowDirection" });
 
 			SemanticProperties.SetHeadingLevel((BindableObject)verticalStack.Children.Last(), SemanticHeadingLevel.Level2);
 
@@ -183,13 +183,17 @@ namespace Maui.Controls.Sample.Pages
 			verticalStack.Add(new ProgressBar { Progress = 0.5, BackgroundColor = Colors.LightCoral });
 			verticalStack.Add(new ProgressBar { Progress = 0.5, ProgressColor = Colors.Purple });
 
-			var searchBar = new SearchBar();
-			searchBar.CharacterSpacing = 4;
-			searchBar.Text = "A search query";
+			var searchBar = new SearchBar
+			{
+				CharacterSpacing = 4,
+				Text = "A search query"
+			};
 			verticalStack.Add(searchBar);
 
-			var placeholderSearchBar = new SearchBar();
-			placeholderSearchBar.Placeholder = "Placeholder";
+			var placeholderSearchBar = new SearchBar
+			{
+				Placeholder = "Placeholder"
+			};
 			verticalStack.Add(placeholderSearchBar);
 
 			var monkeyList = new List<string>
