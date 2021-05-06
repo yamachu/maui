@@ -42,6 +42,11 @@ namespace Microsoft.Maui.Controls.Platform
 			_page = null;
 		}
 
+		protected override void RecyclePage()
+		{
+			// Don't remove the handler inside shell we just keep it around
+		}
+
 		public override void OnDestroy()
 		{
 			Device.BeginInvokeOnMainThread(Dispose);

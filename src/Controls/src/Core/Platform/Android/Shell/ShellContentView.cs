@@ -103,8 +103,13 @@ namespace Microsoft.Maui.Controls.Platform
 				layoutParams.Height = (int)context.ToPixels(height);
 
 			NativeView.LayoutParameters = layoutParams;
-			MauiView.Arrange(new Rectangle(x, y, width, height));
-			//Renderer.UpdateLayout();
+			var c = NativeView.Context;
+			var l = (int)c.ToPixels(x);
+			var t = (int)c.ToPixels(y);
+			var r = (int)c.ToPixels(width) + l;
+			var b = (int)c.ToPixels(height) + t;
+
+			NativeView.Layout(l, t, r, b);
 		}
 
 		public virtual void OnViewSet(View view)

@@ -1,5 +1,6 @@
 using Android.Content;
 using Microsoft.Maui.Graphics;
+using AView = Android.Views.View;
 
 namespace Microsoft.Maui.Controls.Platform
 {
@@ -11,10 +12,11 @@ namespace Microsoft.Maui.Controls.Platform
 
 		protected override void OnLayout(bool changed, int l, int t, int r, int b)
 		{
-			var width = Context.FromPixels(r - l);
-			var height = Context.FromPixels(b - t);
-			Child.VirtualView.Arrange(new Rectangle(0, 0, width, height));
-			base.OnLayout(changed, l, t, r, b);
+			var width = r - l;
+			var height = b - t;
+
+			if (changed && Child.NativeView is AView aView)
+				aView.Layout(0, 0, width, height);
 		}
 	}
 }

@@ -67,6 +67,11 @@ namespace Microsoft.Maui.Controls.Platform
 			return null;
 		}
 
+		protected virtual void RecyclePage()
+		{
+			Page.Handler = null;
+		}
+
 		public override void OnDestroyView()
 		{
 			if (Page != null)
@@ -78,7 +83,7 @@ namespace Microsoft.Maui.Controls.Platform
 						NativeView.RemoveFromParent();
 					}
 
-					Page.Handler = null;
+					RecyclePage();
 				}
 			}
 
@@ -88,18 +93,18 @@ namespace Microsoft.Maui.Controls.Platform
 			base.OnDestroyView();
 		}
 
-		public override void OnHiddenChanged(bool hidden)
-		{
-			base.OnHiddenChanged(hidden);
+		//public override void OnHiddenChanged(bool hidden)
+		//{
+		//	base.OnHiddenChanged(hidden);
 
-			if (Page == null)
-				return;
+		//	if (Page == null)
+		//		return;
 
-			if (hidden)
-				PageController?.SendDisappearing();
-			else
-				PageController?.SendAppearing();
-		}
+		//	if (hidden)
+		//		PageController?.SendDisappearing();
+		//	else
+		//		PageController?.SendAppearing();
+		//}
 
 		// TODO MAUI
 		//public override void OnPause()

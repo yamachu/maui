@@ -73,11 +73,14 @@ namespace Microsoft.Maui.Controls.Compatibility
 
 		protected override void DisconnectHandler(global::Android.Views.View nativeView)
 		{
-			Platform.Android.AppCompat.Platform.SetRenderer(
-				VisualElementRenderer.Element,
-				null);
+			if (VisualElementRenderer.Element != null)
+			{
+				Platform.Android.AppCompat.Platform.SetRenderer(
+					VisualElementRenderer.Element,
+					null);
 
-			VisualElementRenderer.SetElement(null);
+				VisualElementRenderer.SetElement(null);
+			}
 
 			base.DisconnectHandler(nativeView);
 			VirtualView.Handler = null;

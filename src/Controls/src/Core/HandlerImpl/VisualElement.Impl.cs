@@ -17,7 +17,12 @@ namespace Microsoft.Maui.Controls
 			get => _handler;
 			set
 			{
+				if (value == _handler)
+					return;
+
+				var previousHandler = _handler;
 				_handler = value;
+				previousHandler?.DisconnectHandler();
 				IsPlatformEnabled = _handler != null;
 			}
 		}
