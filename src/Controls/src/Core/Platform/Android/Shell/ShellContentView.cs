@@ -19,6 +19,7 @@ namespace Microsoft.Maui.Controls.Platform
 		WeakReference<Context> _context;
 		readonly IMauiContext _mauiContext;
 		IView MauiView => View;
+		public AView NativeView { get; private set; }
 
 		// These are used by layout calls made by android if the layouts
 		// are invalidated. This ensures that the layout is performed
@@ -54,20 +55,24 @@ namespace Microsoft.Maui.Controls.Platform
 			_context = null;
 		}
 
-		public void LayoutView(double x, double y, double width, double height, double? maxWidth = null, double? maxHeight = null)
+		public void Measure(int widthMeasureSpec, int heightMeasureSpec, int? maxHeightPixels, int? maxWidthPixels)
 		{
-			if (width == -1)
-				width = double.PositiveInfinity;
+			//if (width == -1)
+			//	width = double.PositiveInfinity;
 
-			if (height == -1)
-				height = double.PositiveInfinity;
+			//if (height == -1)
+			//	height = double.PositiveInfinity;
 
-			Width = width;
-			Height = height;
-			MaxWidth = maxWidth;
-			MaxHeight = maxHeight;
-			X = x;
-			Y = y;
+			//Width = width;
+			//Height = height;
+			//MaxWidth = maxWidth;
+			//MaxHeight = maxHeight;
+			//X = x;
+			//Y = y;
+			var width = widthMeasureSpec.GetSize();
+			var height = heightMeasureSpec.GetSize();
+			var maxWidth = maxWidthPixels;
+			var maxHeight = maxHeightPixels;
 
 			Context context;
 
@@ -76,49 +81,114 @@ namespace Microsoft.Maui.Controls.Platform
 
 			if (View == null)
 			{
-				MauiView.Measure(0, 0);
-				MauiView.Arrange(Rectangle.Zero);
+				//MauiView.Measure(0, 0);
+				//MauiView.Arrange(Rectangle.Zero);
 				return;
 			}
 
-			var request = MauiView.Measure(width, height);
+			// NativeView.Measure(widthMeasureSpec, heightMeasureSpec);
 
 			var layoutParams = NativeView.LayoutParameters;
-			if (double.IsInfinity(height))
-				height = request.Height;
+			//if (double.IsInfinity(height))
+			//	height = request.Height;
 
-			if (double.IsInfinity(width))
-				width = request.Width;
+			//if (double.IsInfinity(width))
+			//	width = request.Width;
 
 			if (height > maxHeight)
-				height = maxHeight.Value;
+				heightMeasureSpec = MeasureSpecMode.AtMost.MakeMeasureSpec(maxHeight.Value);
 
 			if (width > maxWidth)
-				width = maxWidth.Value;
+				widthMeasureSpec = MeasureSpecMode.AtMost.MakeMeasureSpec(maxWidth.Value);
 
-			if (layoutParams.Width != LP.MatchParent)
-				layoutParams.Width = (int)context.ToPixels(width);
+			if (layoutParams.Width != LP.MatchParent && width > 0)
+				layoutParams.Width = width;
+			else
+				widthMeasureSpec = MeasureSpecMode.Unspecified.MakeMeasureSpec(0);
 
-			if (layoutParams.Height != LP.MatchParent)
-				layoutParams.Height = (int)context.ToPixels(height);
+			if (layoutParams.Height != LP.MatchParent && height > 0)
+				layoutParams.Height = height;
+			else
+				heightMeasureSpec = MeasureSpecMode.Unspecified.MakeMeasureSpec(0);
 
 			NativeView.LayoutParameters = layoutParams;
-			var c = NativeView.Context;
-			var l = (int)c.ToPixels(x);
-			var t = (int)c.ToPixels(y);
-			var r = (int)c.ToPixels(width) + l;
-			var b = (int)c.ToPixels(height) + t;
+			//var c = NativeView.Context;
+			//var l = (int)c.ToPixels(x);
+			//var t = (int)c.ToPixels(y);
+			//var r = (int)c.ToPixels(width) + l;
+			//var b = (int)c.ToPixels(height) + t;
 
+			//NativeView.Layout(l, t, r, b);
+			NativeView.Measure(widthMeasureSpec, heightMeasureSpec);
+		}
+
+		public void LayoutView(int l, int t, int r, int b)
+		{
 			NativeView.Layout(l, t, r, b);
+
+			//if (width == -1)
+			//	width = double.PositiveInfinity;
+
+			//if (height == -1)
+			//	height = double.PositiveInfinity;
+
+			//Width = width;
+			//Height = height;
+			//MaxWidth = maxWidth;
+			//MaxHeight = maxHeight;
+			//X = x;
+			//Y = y;
+
+			//Context context;
+
+			//if (Handler == null || !(_context.TryGetTarget(out context)) || !NativeView.IsAlive())
+			//	return;
+
+			//if (View == null)
+			//{
+			//	MauiView.Measure(0, 0);
+			//	MauiView.Arrange(Rectangle.Zero);
+			//	return;
+			//}
+
+			//var request = MauiView.Measure(width, height);
+
+			//var layoutParams = NativeView.LayoutParameters;
+			//if (double.IsInfinity(height))
+			//	height = request.Height;
+
+			//if (double.IsInfinity(width))
+			//	width = request.Width;
+
+			//if (height > maxHeight)
+			//	height = maxHeight.Value;
+
+			//if (width > maxWidth)
+			//	width = maxWidth.Value;
+
+			//if (layoutParams.Width != LP.MatchParent)
+			//	layoutParams.Width = (int)context.ToPixels(width);
+
+			//if (layoutParams.Height != LP.MatchParent)
+			//	layoutParams.Height = (int)context.ToPixels(height);
+
+			//NativeView.LayoutParameters = layoutParams;
+			//var c = NativeView.Context;
+			//var l = (int)c.ToPixels(x);
+			//var t = (int)c.ToPixels(y);
+			//var r = (int)c.ToPixels(width) + l;
+			//var b = (int)c.ToPixels(height) + t;
+
+			//NativeView.Layout(l, t, r, b);
 		}
 
 		public virtual void OnViewSet(View view)
 		{
-			if (View != null)
-				View.SizeChanged -= OnViewSizeChanged;
+			//if (View != null)
+			//	View.SizeChanged -= OnViewSizeChanged;
 
-			if (View is VisualElement oldView)
-				oldView.MeasureInvalidated -= OnViewSizeChanged;
+			//if (View is VisualElement oldView)
+			//	oldView.MeasureInvalidated -= OnViewSizeChanged;
 
 			if (View != null)
 			{
@@ -137,10 +207,10 @@ namespace Microsoft.Maui.Controls.Platform
 				NativeView = view.ToNative(_mauiContext);
 				Handler = view.Handler;
 
-				if (View is VisualElement ve)
-					ve.MeasureInvalidated += OnViewSizeChanged;
-				else
-					View.SizeChanged += OnViewSizeChanged;
+				//if (View is VisualElement ve)
+				//	ve.MeasureInvalidated += OnViewSizeChanged;
+				//else
+				//	View.SizeChanged += OnViewSizeChanged;
 			}
 			else
 			{
@@ -148,13 +218,8 @@ namespace Microsoft.Maui.Controls.Platform
 			}
 		}
 
-		void OnViewSizeChanged(object sender, EventArgs e) =>
-			LayoutView(X, Y, Width, Height, MaxWidth, MaxHeight);
+		//void OnViewSizeChanged(object sender, EventArgs e) =>
+		//	LayoutView(X, Y, Width, Height, MaxWidth, MaxHeight);
 
-		public AView NativeView
-		{
-			get;
-			private set;
-		}
 	}
 }

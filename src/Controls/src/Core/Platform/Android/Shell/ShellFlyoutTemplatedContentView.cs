@@ -277,7 +277,7 @@ namespace Microsoft.Maui.Controls.Platform
 		{
 			if (_footerView != null)
 			{
-				_footerView.LayoutView(0, 0, _shellContext.AndroidContext.FromPixels(_rootView.LayoutParameters.Width), double.PositiveInfinity);
+				_footerView.LayoutView(0, 0, _rootView.LayoutParameters.Width, MeasureSpecMode.Unspecified.MakeMeasureSpec(0));
 			}
 		}
 
@@ -295,9 +295,7 @@ namespace Microsoft.Maui.Controls.Platform
 
 				var width = View.MeasuredWidth;
 
-				_contentView.LayoutView(0, 0,
-					ShellContext.AndroidContext.FromPixels(width),
-					ShellContext.AndroidContext.FromPixels(height));
+				_contentView.LayoutView(0, 0, width, height);
 			}
 		}
 
@@ -538,20 +536,36 @@ namespace Microsoft.Maui.Controls.Platform
 					ElevationHelper.SetElevation(view, View);
 			}
 
-			protected override void LayoutView(double x, double y, double width, double height)
+
+			protected override void OnLayout(bool changed, int l, int t, int r, int b)
 			{
 				var context = Context;
-				var paddingLeft = context.FromPixels(PaddingLeft);
-				var paddingTop = context.FromPixels(PaddingTop);
-				var paddingRight = context.FromPixels(PaddingRight);
-				var paddingBottom = context.FromPixels(PaddingBottom);
+				//var paddingLeft = context.FromPixels(PaddingLeft);
+				//var paddingTop = context.FromPixels(PaddingTop);
+				//var paddingRight = context.FromPixels(PaddingRight);
+				//var paddingBottom = context.FromPixels(PaddingBottom);
 
-				width -= paddingLeft + paddingRight;
-				height -= paddingTop + paddingBottom;
+				l -= PaddingLeft + PaddingRight;
+				t -= PaddingTop + PaddingBottom;
 
 				UpdateElevation();
-				base.LayoutView(paddingLeft, paddingTop, width, height);
+				base.OnLayout(changed, l, t, r, b);
 			}
+
+			//protected override void LayoutView(double x, double y, double width, double height)
+			//{
+			//	var context = Context;
+			//	var paddingLeft = context.FromPixels(PaddingLeft);
+			//	var paddingTop = context.FromPixels(PaddingTop);
+			//	var paddingRight = context.FromPixels(PaddingRight);
+			//	var paddingBottom = context.FromPixels(PaddingBottom);
+
+			//	width -= paddingLeft + paddingRight;
+			//	height -= paddingTop + paddingBottom;
+
+			//	UpdateElevation();
+			//	base.LayoutView(paddingLeft, paddingTop, width, height);
+			//}
 
 			protected override void Dispose(bool disposing)
 			{
