@@ -1,3 +1,4 @@
+using Foundation;
 using Microsoft.Maui.Platform.iOS;
 using UIKit;
 
@@ -7,9 +8,18 @@ namespace Microsoft.Maui
 	{
 		public static void UpdateText(this UILabel nativeLabel, ILabel label)
 		{
-			nativeLabel.Text = label.Text;
-		}
+			switch (label.TextType)
+			{
+				case TextType.Html:
+					nativeLabel.UpdateTextHtml(label);
+					break;
 
+				default:
+					nativeLabel.UpdateTextPlainText(label);
+					break;
+			}
+		}
+				
 		public static void UpdateTextColor(this UILabel nativeLabel, ITextStyle textStyle, UIColor? defaultColor = null)
 		{
 			// Default value of color documented to be black in iOS docs
@@ -20,6 +30,7 @@ namespace Microsoft.Maui
 		public static void UpdateCharacterSpacing(this UILabel nativeLabel, ITextStyle textStyle)
 		{
 			var textAttr = nativeLabel.AttributedText?.WithCharacterSpacing(textStyle.CharacterSpacing);
+
 			if (textAttr != null)
 				nativeLabel.AttributedText = textAttr;
 		}
@@ -56,6 +67,9 @@ namespace Microsoft.Maui
 
 		public static void UpdateTextDecorations(this UILabel nativeLabel, ILabel label)
 		{
+			if (label?.TextType != TextType.Text)
+				return;
+
 			var modAttrText = nativeLabel.AttributedText?.WithDecorations(label.TextDecorations);
 
 			if (modAttrText != null)
@@ -68,6 +82,26 @@ namespace Microsoft.Maui
 
 			if (modAttrText != null)
 				nativeLabel.AttributedText = modAttrText;
+		}
+
+		internal static void UpdateTextHtml(this UILabel nativeLabel, ILabel label)
+		{
+			string text = label.Text ?? string.Empty;
+
+			var attr = new NSAttributedStringDocumentAttributes
+			{
+				DocumentType = NSDocumentType.HTML,
+				StringEncoding = NSStringEncoding.UTF8
+			};
+
+			NSError? nsError = null;
+
+			nativeLabel.AttributedText = new NSAttributedString(text, attr, ref nsError);
+		}
+
+		internal static void UpdateTextPlainText(this UILabel nativeLabel, ILabel label)
+		{
+			nativeLabel.Text = label.Text;
 		}
 
 		internal static void SetLineBreakMode(this UILabel nativeLabel, ILabel label)

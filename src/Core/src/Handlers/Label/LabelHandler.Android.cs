@@ -1,11 +1,4 @@
-using System;
-using Android.Content;
-using Android.Runtime;
-using Android.Util;
-using Android.Views;
 using Android.Widget;
-using Java.Lang;
-using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Maui.Graphics;
 
 namespace Microsoft.Maui.Handlers
@@ -34,6 +27,11 @@ namespace Microsoft.Maui.Handlers
 		}
 
 		public static void MapText(LabelHandler handler, ILabel label)
+		{
+			handler.NativeView?.UpdateText(label);
+		}
+
+		public static void MapTextType(LabelHandler handler, ILabel label)
 		{
 			handler.NativeView?.UpdateText(label);
 		}
