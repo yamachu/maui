@@ -11,16 +11,37 @@ using AndroidAnimation = Android.Views.Animations.Animation;
 using AnimationSet = Android.Views.Animations.AnimationSet;
 using AView = Android.Views.View;
 
-namespace Microsoft.Maui.Controls.Platform
+namespace Xamarin.Forms.Platform.Android
 {
 	public class ShellContentFragment : Fragment, AndroidAnimation.IAnimationListener, IShellObservableFragment, IAppearanceObserver
 	{
+		// AndroidX.Fragment packaged stopped calling CreateAnimation for every call
+		// of creating a fragment
+		bool _isAnimating = false;
+
 		#region IAnimationListener
 
 		void AndroidAnimation.IAnimationListener.OnAnimationEnd(AndroidAnimation animation)
 		{
 			View?.SetLayerType(LayerType.None, null);
 			AnimationFinished?.Invoke(this, EventArgs.Empty);
+			_isAnimating = false;
+		}
+
+		public override void OnResume()
+		{
+			base.OnResume();
+			if (!_isAnimating)
+			{
+				View?.SetLayerType(LayerType.None, null);
+				AnimationFinished?.Invoke(this, EventArgs.Empty);
+			}
+		}
+
+
+		public override void OnViewStateRestored(Bundle savedInstanceState)
+		{
+			base.OnViewStateRestored(savedInstanceState);
 		}
 
 		void AndroidAnimation.IAnimationListener.OnAnimationRepeat(AndroidAnimation animation)
@@ -48,14 +69,13 @@ namespace Microsoft.Maui.Controls.Platform
 		readonly IShellContext _shellContext;
 		IShellToolbarAppearanceTracker _appearanceTracker;
 		Page _page;
-		IViewHandler _viewhandler;
+		IVisualElementRenderer _renderer;
 		AView _root;
 		ShellPageContainer _shellPageContainer;
 		ShellContent _shellContent;
 		Toolbar _toolbar;
 		IShellToolbarTracker _toolbarTracker;
 		bool _disposed;
-		IMauiContext MauiContext => _shellContext.Shell.Handler.MauiContext;
 
 		public ShellContentFragment(IShellContext shellContext, ShellContent shellContent)
 		{
@@ -76,6 +96,7 @@ namespace Microsoft.Maui.Controls.Platform
 		public override AndroidAnimation OnCreateAnimation(int transit, bool enter, int nextAnim)
 		{
 			var result = base.OnCreateAnimation(transit, enter, nextAnim);
+			_isAnimating = true;
 
 			if (result == null && nextAnim != 0)
 			{
@@ -115,13 +136,14 @@ namespace Microsoft.Maui.Controls.Platform
 				_page = ((IShellContentController)_shellContent).GetOrCreateContent();
 			}
 
-			_root = inflater.Inflate(Resource.Layout.shellcontent, null).JavaCast<CoordinatorLayout>();
+			_root = inflater.Inflate(Resource.Layout.ShellContent, null).JavaCast<CoordinatorLayout>();
 
 			_toolbar = _root.FindViewById<Toolbar>(Resource.Id.shellcontent_toolbar);
-			_page.ToNative(MauiContext);
-			_viewhandler = _page.Handler;
 
-			_shellPageContainer = new ShellPageContainer(Context, _viewhandler);
+			_renderer = Platform.CreateRenderer(_page, Context);
+			Platform.SetRenderer(_page, _renderer);
+
+			_shellPageContainer = new ShellPageContainer(Context, _renderer);
 
 			if (_root is ViewGroup vg)
 				vg.AddView(_shellPageContainer);
@@ -148,7 +170,8 @@ namespace Microsoft.Maui.Controls.Platform
 			if (_shellContent != null)
 			{
 				((IShellContentController)_shellContent).RecyclePage(_page);
-				_page.Handler = null;
+				_page.ClearValue(Platform.RendererProperty);
+				_page = null;
 			}
 
 			if (_shellPageContainer != null)
@@ -159,6 +182,7 @@ namespace Microsoft.Maui.Controls.Platform
 					vg.RemoveView(_shellPageContainer);
 			}
 
+			_renderer?.Dispose();
 			_root?.Dispose();
 			_toolbarTracker?.Dispose();
 			_appearanceTracker?.Dispose();
@@ -168,7 +192,7 @@ namespace Microsoft.Maui.Controls.Platform
 			_toolbarTracker = null;
 			_toolbar = null;
 			_root = null;
-			_viewhandler = null;
+			_renderer = null;
 			_shellContent = null;
 		}
 
