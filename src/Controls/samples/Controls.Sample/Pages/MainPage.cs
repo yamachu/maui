@@ -88,6 +88,7 @@ namespace Maui.Controls.Sample.Pages
 			verticalStack.Add(new Label { Text = loremIpsum, LineBreakMode = LineBreakMode.TailTruncation });
 			verticalStack.Add(new Label { Text = loremIpsum, MaxLines = 2, LineBreakMode = LineBreakMode.TailTruncation });
 			verticalStack.Add(new Label { Text = "This should have five times the line height! " + loremIpsum, LineHeight = 5, MaxLines = 2 });
+			verticalStack.Add(new Label { Text = "This is <strong>HTML</strong> text.", TextType = TextType.Html });
 
 			SemanticProperties.SetHeadingLevel((BindableObject)verticalStack.Children.Last(), SemanticHeadingLevel.Level2);
 
