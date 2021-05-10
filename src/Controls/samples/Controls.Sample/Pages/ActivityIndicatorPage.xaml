@@ -6,7 +6,7 @@
     xmlns:views="clr-namespace:Maui.Controls.Sample.Pages.Base"
     Title="ActivityIndicator">
     <ContentPage.Content>
-        <StackLayout
+        <VerticalStackLayout
             Padding="12">
             <Label
                 Text="Default"
@@ -25,6 +25,6 @@
             <ActivityIndicator
                 IsRunning="True"
                 Color="{StaticResource AccentColor}" />
-        </StackLayout>
+        </VerticalStackLayout>
     </ContentPage.Content>
 </views:BasePage>

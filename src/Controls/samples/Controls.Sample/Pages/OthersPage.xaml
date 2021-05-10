@@ -4,5 +4,9 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
     x:Class="Maui.Controls.Sample.Pages.OthersPage"
     xmlns:views="clr-namespace:Maui.Controls.Sample.Pages.Base"
+    xmlns:viewmodels="clr-namespace:Maui.Controls.Sample.ViewModels"
     ControlTemplate="{StaticResource GalleryPageTemplate}">
+    <views:BasePage.BindingContext>
+        <viewmodels:OthersViewModel />
+    </views:BasePage.BindingContext>
 </views:BasePage>

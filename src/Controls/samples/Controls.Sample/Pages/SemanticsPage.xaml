@@ -5,7 +5,7 @@
     x:Class="Maui.Controls.Sample.Pages.SemanticsPage"
     Title="Semantics"
     BackgroundColor="White">
-    <ScrollView Margin="15,20">
+    <ScrollView Margin="15, 20">
         <VerticalStackLayout>
             <Label
                 Text="Welcome to .NET MAUI Semantics!"

@@ -73,7 +73,7 @@ namespace Maui.Controls.Sample
 					}
 
 					services.AddSingleton<ITextService, TextService>();
-					services.AddTransient<MainPageViewModel>();
+					services.AddTransient<MainViewModel>();
 
 					services.AddTransient(
 						serviceType: typeof(Page),

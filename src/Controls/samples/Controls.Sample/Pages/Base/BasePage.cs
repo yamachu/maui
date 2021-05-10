@@ -3,6 +3,7 @@ using System.Windows.Input;
 using Microsoft.Maui;
 using Microsoft.Maui.Controls;
 using Maui.Controls.Sample.Models;
+using System.Diagnostics;
 
 namespace Maui.Controls.Sample.Pages.Base
 {
@@ -19,12 +20,12 @@ namespace Maui.Controls.Sample.Pages.Base
 
 		protected override void OnAppearing()
 		{
-			System.Diagnostics.Debug.WriteLine($"OnAppearing: {this}");
+			Debug.WriteLine($"OnAppearing: {this}");
 		}
 
 		protected override void OnDisappearing()
 		{
-			System.Diagnostics.Debug.WriteLine($"OnDisappearing: {this}");
+			Debug.WriteLine($"OnDisappearing: {this}");
 		}
 
 		public ICommand NavigateCommand { get; }

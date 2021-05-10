@@ -7,7 +7,7 @@
     Title="Editor">
     <views:BasePage.Content>
         <ScrollView>
-            <StackLayout
+            <VerticalStackLayout
                 Padding="12">
                 <Label
                     Text="Default"
@@ -30,7 +30,7 @@
                 <Editor
                     Text="I am read only"
                     IsReadOnly="True"/>
-            </StackLayout>
+            </VerticalStackLayout>
         </ScrollView>
     </views:BasePage.Content>
 </views:BasePage>

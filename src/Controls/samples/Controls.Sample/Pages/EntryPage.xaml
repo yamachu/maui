@@ -7,7 +7,7 @@
     Title="Entry">
     <views:BasePage.Content>
         <ScrollView>
-            <StackLayout
+            <VerticalStackLayout
                 Padding="12">
                 <Label
                     Text="Basic"
@@ -45,7 +45,7 @@
                 <StackLayout Orientation="Horizontal">
                     <Entry Text="I am read only" IsReadOnly="True"/>
                 </StackLayout>
-            </StackLayout>
+            </VerticalStackLayout>
         </ScrollView>
     </views:BasePage.Content>
 </views:BasePage>
