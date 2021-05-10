@@ -3,6 +3,7 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
     xmlns:local="clr-namespace:Maui.Controls.Sample"
     x:Class="Maui.Controls.Sample.App"
+    xmlns:controls="using:Maui.Controls.Sample.Controls"
     xmlns:windows="clr-namespace:Microsoft.Maui.Controls.PlatformConfiguration.WindowsSpecific;assembly=Microsoft.Maui.Controls"
     windows:Application.ImageDirectory="Assets">
     <Application.Resources>
