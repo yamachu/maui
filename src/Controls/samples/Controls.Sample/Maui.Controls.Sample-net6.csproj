@@ -63,9 +63,6 @@
   <ItemGroup>
     <RazorComponent Include="**\*.razor" />
   </ItemGroup>
-  <ItemGroup>
-    <EmbeddedResource Remove="Styles\DefaultTheme.xaml" />
-  </ItemGroup>
 
   <Target Name="Net6WinUIWorkaround" BeforeTargets="_GetSdkToolsPathsFromSdk" Condition="$(TargetFramework.Contains('-windows')) == true ">
     <PropertyGroup>
