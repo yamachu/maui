@@ -2,7 +2,8 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Windows.Input;
-using Xamarin.Forms.Gallery.Models;
+using Maui.Controls.Sample.Models;
+using Microsoft.Maui.Controls;
 
 namespace Maui.Controls.Sample.ViewModels.Base
 {

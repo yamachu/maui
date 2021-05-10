@@ -1,9 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Maui.Controls.Sample.ViewModel;
+using Maui.Controls.Sample.ViewModels;
 using Microsoft.Maui.Controls;
 using Microsoft.Maui.Graphics;
 
@@ -20,7 +16,6 @@ namespace Maui.Controls.Sample.Pages
 			});
 			BarBackgroundColor = Colors.Purple;
 			BarTextColor = Colors.Green;
-
 		}
 	}
 }

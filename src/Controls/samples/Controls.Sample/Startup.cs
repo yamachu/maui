@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using Maui.Controls.Sample.Pages;
 using Maui.Controls.Sample.Services;
-using Maui.Controls.Sample.ViewModel;
+using Maui.Controls.Sample.ViewModels;
 #if NET6_0_OR_GREATER
 using Microsoft.AspNetCore.Components.WebView.Maui;
 #endif

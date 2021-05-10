@@ -1,7 +1,7 @@
 #if NET6_0_OR_GREATER
 using System;
-using Maui.Controls.Sample.Controls;
-using Maui.Controls.Sample.ViewModel;
+using Maui.Controls.Sample.Pages.Base;
+using Maui.Controls.Sample.ViewModels;
 using Microsoft.AspNetCore.Components.WebView.Maui;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Maui;
