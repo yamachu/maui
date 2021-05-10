@@ -7,15 +7,15 @@ using Microsoft.Maui.Controls;
 
 namespace Maui.Controls.Sample
 {
-	public partial class XamlApp : Application
+	public partial class App : Application
 	{
-		public XamlApp(IServiceProvider services, ITextService textService)
+		public App(IServiceProvider services, ITextService textService)
 		{
 			InitializeComponent();
 
 			Services = services;
 
-			Debug.WriteLine($"The .NET Purple color is {Resources["DotNetPurple"]}");
+			Debug.WriteLine($"The Accent color is {Resources["AccentColor"]}");
 			Debug.WriteLine($"The injected text service had a message: '{textService.GetText()}'");
 		}
 

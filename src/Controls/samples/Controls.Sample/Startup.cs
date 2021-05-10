@@ -32,7 +32,7 @@ namespace Maui.Controls.Sample
 			appBuilder
 				.UseFormsCompatibility()
 				.UseMauiControlsHandlers()
-				.UseMauiApp<XamlApp>();
+				.UseMauiApp<App>();
 
 			if (UseFullDI)
 				appBuilder.UseServiceProviderFactory(new DIExtensionsServiceProviderFactory());

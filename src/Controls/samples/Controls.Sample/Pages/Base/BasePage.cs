@@ -2,7 +2,6 @@ using System;
 using System.Windows.Input;
 using Microsoft.Maui;
 using Microsoft.Maui.Controls;
-using Microsoft.Maui.Graphics;
 using Maui.Controls.Sample.Models;
 
 namespace Maui.Controls.Sample.Pages.Base
@@ -27,8 +26,6 @@ namespace Maui.Controls.Sample.Pages.Base
 		{
 			System.Diagnostics.Debug.WriteLine($"OnDisappearing: {this}");
 		}
-
-		public Color DetailColor { get; set; }
 
 		public ICommand NavigateCommand { get; }
 
