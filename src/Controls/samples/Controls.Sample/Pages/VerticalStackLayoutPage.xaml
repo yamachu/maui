@@ -6,5 +6,22 @@
     xmlns:views="clr-namespace:Maui.Controls.Sample.Pages.Base"
     Title="VerticalStackLayout">
     <views:BasePage.Content>
+        <VerticalStackLayout 
+            Margin="12">
+            <Label 
+                Text="VerticalStackLayout" />
+            <BoxView 
+                Color="Red" />
+            <BoxView 
+                Color="Yellow" />
+            <BoxView 
+                Color="Blue" />
+            <BoxView 
+                Color="Green" />
+            <BoxView 
+                Color="Orange" />
+            <BoxView 
+                Color="Purple" />
+        </VerticalStackLayout>
     </views:BasePage.Content>
 </views:BasePage>
