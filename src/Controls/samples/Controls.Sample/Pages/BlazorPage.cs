@@ -13,9 +13,9 @@ namespace Maui.Controls.Sample.Pages
 	public class BlazorPage : BasePage
 	{
 		readonly IServiceProvider _services;
-		readonly MainPageViewModel _viewModel;
+		readonly MainViewModel _viewModel;
 
-		public BlazorPage(IServiceProvider services, MainPageViewModel viewModel)
+		public BlazorPage(IServiceProvider services, MainViewModel viewModel)
 		{
 			_services = services;
 			BindingContext = _viewModel = viewModel;
@@ -40,6 +40,7 @@ namespace Maui.Controls.Sample.Pages
 				MinimumHeightRequest = 400,
 				HostPage = @"wwwroot/index.html",
 			};
+
 			bwv.RootComponents.Add(new RootComponent { Selector = "#app", ComponentType = typeof(Main) });
 			verticalStack.Add(bwv);
 			verticalStack.Add(new Label { Text = "This should be BOTTOM text!", FontSize = 24, HorizontalOptions = LayoutOptions.End });
