@@ -4,7 +4,7 @@ using Maui.Controls.Sample.ViewModels.Base;
 
 namespace Maui.Controls.Sample.ViewModels
 {
-    public class OthersViewModel : BaseGalleryViewModel
+	public class UserInterfaceViewModel : BaseGalleryViewModel
 	{
 		protected override IEnumerable<SectionModel> CreateItems() => null;
 	}

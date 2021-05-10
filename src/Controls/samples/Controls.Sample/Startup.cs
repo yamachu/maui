@@ -4,9 +4,6 @@ using System.Diagnostics;
 using Maui.Controls.Sample.Pages;
 using Maui.Controls.Sample.Services;
 using Maui.Controls.Sample.ViewModels;
-#if NET6_0_OR_GREATER
-using Microsoft.AspNetCore.Components.WebView.Maui;
-#endif
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.DependencyInjection;
@@ -18,6 +15,10 @@ using Microsoft.Maui.Essentials;
 using Microsoft.Maui.Hosting;
 using Microsoft.Maui.LifecycleEvents;
 using Microsoft.Maui.Controls;
+
+#if NET6_0_OR_GREATER
+using Microsoft.AspNetCore.Components.WebView.Maui;
+#endif
 
 namespace Maui.Controls.Sample
 {
