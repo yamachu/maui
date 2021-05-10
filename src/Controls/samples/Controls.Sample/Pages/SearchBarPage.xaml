@@ -8,6 +8,10 @@
     <views:BasePage.Content>
         <StackLayout
             Padding="12">
+            <Label
+                Text="Default"
+                Style="{StaticResource Headline}"/>
+            <SearchBar/>
         </StackLayout>
     </views:BasePage.Content>
 </views:BasePage>

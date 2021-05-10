@@ -8,6 +8,11 @@
     <views:BasePage.Content>
         <StackLayout
             Padding="12">
+            <Label
+                Text="Default"
+                Style="{StaticResource Headline}"/>
+            <Button
+                Text="Button"/>
         </StackLayout>
     </views:BasePage.Content>
 </views:BasePage>

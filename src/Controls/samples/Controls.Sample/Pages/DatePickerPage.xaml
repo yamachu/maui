@@ -8,6 +8,10 @@
     <views:BasePage.Content>
         <StackLayout
             Padding="12">
+            <Label
+                Text="Default"
+                Style="{StaticResource Headline}"/>
+            <DatePicker/>
         </StackLayout>
     </views:BasePage.Content>
 </views:BasePage>

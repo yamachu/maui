@@ -8,6 +8,11 @@
     <views:BasePage.Content>
         <StackLayout
             Padding="12">
+            <Label
+                Text="Default"
+                Style="{StaticResource Headline}"/>
+            <ProgressBar
+                Progress="0.5"/>
         </StackLayout>
     </views:BasePage.Content>
 </views:BasePage>

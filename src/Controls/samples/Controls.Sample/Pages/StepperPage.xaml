@@ -6,5 +6,12 @@
     xmlns:views="clr-namespace:Maui.Controls.Sample.Pages.Base"
     Title="Stepper">
     <views:BasePage.Content>
+        <StackLayout
+            Padding="12">
+            <Label
+                Text="Default"
+                Style="{StaticResource Headline}"/>
+            <Stepper/>
+        </StackLayout>
     </views:BasePage.Content>
 </views:BasePage>
