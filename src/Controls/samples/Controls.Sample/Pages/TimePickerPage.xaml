@@ -6,5 +6,8 @@
     xmlns:views="clr-namespace:Maui.Controls.Sample.Pages.Base"
     Title="TimePicker">
     <views:BasePage.Content>
+        <StackLayout
+            Padding="12">
+        </StackLayout>
     </views:BasePage.Content>
 </views:BasePage>

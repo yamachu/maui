@@ -2,7 +2,7 @@
 {
 	public partial class ProgressBarPage
 	{
-		public ProgressBarPage1()
+		public ProgressBarPage()
 		{
 			InitializeComponent();
 		}

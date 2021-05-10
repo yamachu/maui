@@ -24,9 +24,6 @@ namespace Maui.Controls.Sample
 {
 	public class Startup : IStartup
 	{
-		enum PageType { Xaml, Semantics, Main, Blazor, NavigationPage }
-		private PageType _pageType = PageType.NavigationPage;
-
 		public readonly static bool UseXamlApp = true;
 		public readonly static bool UseFullDI = false;
 
@@ -34,12 +31,8 @@ namespace Maui.Controls.Sample
 		{
 			appBuilder
 				.UseFormsCompatibility()
-				.UseMauiControlsHandlers();
-
-			if (UseXamlApp)
-				appBuilder.UseMauiApp<XamlApp>();
-			else
-				appBuilder.UseMauiApp<MyApp>();
+				.UseMauiControlsHandlers()
+				.UseMauiApp<XamlApp>();
 
 			if (UseFullDI)
 				appBuilder.UseServiceProviderFactory(new DIExtensionsServiceProviderFactory());
@@ -84,20 +77,7 @@ namespace Maui.Controls.Sample
 
 					services.AddTransient(
 						serviceType: typeof(Page),
-						implementationType: _pageType switch
-						{
-							PageType.NavigationPage => typeof(NavPage),
-							PageType.Xaml => typeof(XamlPage),
-							PageType.Semantics => typeof(SemanticsPage),
-							PageType.Blazor =>
-#if NET6_0_OR_GREATER
-								typeof(BlazorPage),
-#else
-								throw new NotSupportedException("Blazor requires .NET 6 or higher."),
-#endif
-							PageType.Main => typeof(MainPage),
-							_ => throw new Exception(),
-						});
+						implementationType: typeof(CustomNavigationPage));
 
 					services.AddTransient<IWindow, Window>();
 				})

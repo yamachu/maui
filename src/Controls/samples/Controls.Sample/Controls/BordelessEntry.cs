@@ -1,6 +1,8 @@
-﻿namespace Maui.Controls.Sample.Controls
+﻿using Microsoft.Maui.Controls;
+
+namespace Maui.Controls.Sample.Controls
 {
-	public class BordelessEntry
+	public class BordelessEntry : Entry
 	{
 
 	}
