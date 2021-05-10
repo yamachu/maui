@@ -13,12 +13,12 @@ namespace Maui.Controls.Sample.Pages
 			popButton.Clicked += PopButton_Clicked;
 		}
 
-		private async void PopButton_Clicked(object sender, System.EventArgs e)
+		async void PopButton_Clicked(object sender, System.EventArgs e)
 		{
 			await Navigation.PopAsync();
 		}
 
-		private async void PushButton_Clicked(object sender, System.EventArgs e)
+		async void PushButton_Clicked(object sender, System.EventArgs e)
 		{
 			await Navigation.PushAsync(new SemanticsPage());
 		}
