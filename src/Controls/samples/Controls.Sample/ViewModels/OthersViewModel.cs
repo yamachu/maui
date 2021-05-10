@@ -7,12 +7,14 @@ namespace Maui.Controls.Sample.ViewModels
 {
     public class OthersViewModel : BaseGalleryViewModel
 	{
+#if NET6_0_OR_GREATER
 		protected override IEnumerable<SectionModel> CreateItems() => new[]
 		{
-#if NET6_0_OR_GREATER
 			new SectionModel(typeof(BlazorPage), "BlazorWebView",
 				"The BlazorWebView control allow to easily embed Blazor content with native UI.")
-#endif
 		};
+#else	
+		protected override IEnumerable<SectionModel> CreateItems() => null;
+#endif
 	}
 }
