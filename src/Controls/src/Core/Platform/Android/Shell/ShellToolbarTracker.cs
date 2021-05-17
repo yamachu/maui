@@ -678,8 +678,8 @@ namespace Microsoft.Maui.Controls.Platform
 			public FlyoutIconDrawerDrawable(IMauiContext context, Color defaultColor, Drawable icon, string text) : base(context.Context)
 			{
 				var fontManager = context.Services.GetRequiredService<IFontManager>();
-				TintColor = defaultColor;				
-				_defaultSize = fontManager.GetScaledPixel(Font.OfSize("Roboto", NamedSize.Default));
+				TintColor = defaultColor;
+				_defaultSize = fontManager.GetFontSize(Font.OfSize("Roboto", 0));
 				IconBitmap = icon;
 				Text = text;
 			}

@@ -11,7 +11,7 @@ using AndroidAnimation = Android.Views.Animations.Animation;
 using AnimationSet = Android.Views.Animations.AnimationSet;
 using AView = Android.Views.View;
 
-namespace Xamarin.Forms.Platform.Android
+namespace Microsoft.Maui.Controls.Platform
 {
 	public class ShellContentFragment : Fragment, AndroidAnimation.IAnimationListener, IShellObservableFragment, IAppearanceObserver
 	{
@@ -33,15 +33,8 @@ namespace Xamarin.Forms.Platform.Android
 			base.OnResume();
 			if (!_isAnimating)
 			{
-				View?.SetLayerType(LayerType.None, null);
 				AnimationFinished?.Invoke(this, EventArgs.Empty);
 			}
-		}
-
-
-		public override void OnViewStateRestored(Bundle savedInstanceState)
-		{
-			base.OnViewStateRestored(savedInstanceState);
 		}
 
 		void AndroidAnimation.IAnimationListener.OnAnimationRepeat(AndroidAnimation animation)
@@ -69,13 +62,14 @@ namespace Xamarin.Forms.Platform.Android
 		readonly IShellContext _shellContext;
 		IShellToolbarAppearanceTracker _appearanceTracker;
 		Page _page;
-		IVisualElementRenderer _renderer;
+		IViewHandler _viewhandler;
 		AView _root;
 		ShellPageContainer _shellPageContainer;
 		ShellContent _shellContent;
 		Toolbar _toolbar;
 		IShellToolbarTracker _toolbarTracker;
 		bool _disposed;
+		IMauiContext MauiContext => _shellContext.Shell.Handler.MauiContext;
 
 		public ShellContentFragment(IShellContext shellContext, ShellContent shellContent)
 		{
@@ -136,14 +130,13 @@ namespace Xamarin.Forms.Platform.Android
 				_page = ((IShellContentController)_shellContent).GetOrCreateContent();
 			}
 
-			_root = inflater.Inflate(Resource.Layout.ShellContent, null).JavaCast<CoordinatorLayout>();
+			_root = inflater.Inflate(Resource.Layout.shellcontent, null).JavaCast<CoordinatorLayout>();
 
 			_toolbar = _root.FindViewById<Toolbar>(Resource.Id.shellcontent_toolbar);
+			_page.ToNative(MauiContext);
+			_viewhandler = _page.Handler;
 
-			_renderer = Platform.CreateRenderer(_page, Context);
-			Platform.SetRenderer(_page, _renderer);
-
-			_shellPageContainer = new ShellPageContainer(Context, _renderer);
+			_shellPageContainer = new ShellPageContainer(Context, _viewhandler);
 
 			if (_root is ViewGroup vg)
 				vg.AddView(_shellPageContainer);
@@ -170,8 +163,7 @@ namespace Xamarin.Forms.Platform.Android
 			if (_shellContent != null)
 			{
 				((IShellContentController)_shellContent).RecyclePage(_page);
-				_page.ClearValue(Platform.RendererProperty);
-				_page = null;
+				_page.Handler = null;
 			}
 
 			if (_shellPageContainer != null)
@@ -182,7 +174,6 @@ namespace Xamarin.Forms.Platform.Android
 					vg.RemoveView(_shellPageContainer);
 			}
 
-			_renderer?.Dispose();
 			_root?.Dispose();
 			_toolbarTracker?.Dispose();
 			_appearanceTracker?.Dispose();
@@ -192,7 +183,7 @@ namespace Xamarin.Forms.Platform.Android
 			_toolbarTracker = null;
 			_toolbar = null;
 			_root = null;
-			_renderer = null;
+			_viewhandler = null;
 			_shellContent = null;
 		}
 
