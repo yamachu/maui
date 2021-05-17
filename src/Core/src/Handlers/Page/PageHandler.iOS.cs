@@ -44,7 +44,7 @@ namespace Microsoft.Maui.Handlers
 
 		void UpdateContent()
 		{
-			if (NativeView == null)
+			if (NativeView == null || VirtualView == null)
 				return;
 
 			//Cleanup the old view when reused
