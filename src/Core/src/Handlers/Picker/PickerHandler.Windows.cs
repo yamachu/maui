@@ -1,4 +1,4 @@
-﻿#nullable enable
+#nullable enable
 using WBrush = Microsoft.UI.Xaml.Media.Brush;
 using WSelectionChangedEventArgs = Microsoft.UI.Xaml.Controls.SelectionChangedEventArgs;
 
@@ -6,7 +6,7 @@ namespace Microsoft.Maui.Handlers
 {
 	public partial class PickerHandler : ViewHandler<IPicker, MauiComboBox>
 	{
-		static WBrush? DefaultForeground;
+		WBrush? _defaultForeground;
 
 		protected override MauiComboBox CreateNativeView()
 		{
@@ -30,7 +30,7 @@ namespace Microsoft.Maui.Handlers
 
 		protected override void SetupDefaults(MauiComboBox nativeView)
 		{
-			DefaultForeground = nativeView.Foreground;
+			_defaultForeground = nativeView.Foreground;
 
 			base.SetupDefaults(nativeView);
 		}
@@ -68,7 +68,7 @@ namespace Microsoft.Maui.Handlers
 
 		public static void MapTextColor(PickerHandler handler, IPicker picker)
 		{
-			handler.NativeView?.UpdateTextColor(picker, DefaultForeground);
+			handler.NativeView?.UpdateTextColor(picker, handler._defaultForeground);
 		}
 
 		public static void MapHorizontalTextAlignment(PickerHandler handler, IPicker picker)
