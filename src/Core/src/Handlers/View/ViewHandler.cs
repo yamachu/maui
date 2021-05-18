@@ -56,11 +56,9 @@ namespace Microsoft.Maui.Handlers
 
 		protected abstract void RemoveContainer();
 
-		//_ = NativeView ?? throw new InvalidOperationException($"NativeView cannot be null here: {callerName}");
-
 		IMauiContext? _mauiContext;
 
-		public IMauiContext MauiContext 
+		public IMauiContext MauiContext
 		{ 
 			get => _mauiContext ?? throw new InvalidOperationException($"{nameof(MauiContext)} cannot be null");
 			private set => _mauiContext = value;
