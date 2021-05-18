@@ -38,12 +38,6 @@ namespace Microsoft.Maui.Handlers
 			_ = VirtualView ?? throw new InvalidOperationException($"{nameof(VirtualView)} should have been set by base class.");
 			_ = MauiContext ?? throw new InvalidOperationException($"{nameof(MauiContext)} should have been set by base class.");
 
-
-			NativeView.CrossPlatformArrange = VirtualView.Arrange;
-		}
-
-		void UpdateContent()
-		{
 			if (NativeView == null || VirtualView == null)
 				return;
 

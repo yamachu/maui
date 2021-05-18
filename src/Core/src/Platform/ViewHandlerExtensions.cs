@@ -8,7 +8,7 @@ namespace Microsoft.Maui
 {
 	static class ViewHandlerExtensions
 	{
-		public static IServiceProvider GetServiceProvider(this ViewHandler handler)
+		public static IServiceProvider GetServiceProvider(this IViewHandler handler)
 		{
 			var context = handler.MauiContext ??
 				throw new InvalidOperationException($"Unable to find the context. The {nameof(ViewHandler.MauiContext)} property should have been set by the host.");
@@ -19,7 +19,7 @@ namespace Microsoft.Maui
 			return services;
 		}
 
-		public static T? GetService<T>(this ViewHandler handler, Type type)
+		public static T? GetService<T>(this IViewHandler handler, Type type)
 		{
 			var services = handler.GetServiceProvider();
 
@@ -28,7 +28,7 @@ namespace Microsoft.Maui
 			return (T?)service;
 		}
 
-		public static T? GetService<T>(this ViewHandler handler)
+		public static T? GetService<T>(this IViewHandler handler)
 		{
 			var services = handler.GetServiceProvider();
 
@@ -37,7 +37,7 @@ namespace Microsoft.Maui
 			return service;
 		}
 
-		public static T GetRequiredService<T>(this ViewHandler handler, Type type)
+		public static T GetRequiredService<T>(this IViewHandler handler, Type type)
 			where T : notnull
 		{
 			var services = handler.GetServiceProvider();
@@ -47,7 +47,7 @@ namespace Microsoft.Maui
 			return (T)service;
 		}
 
-		public static T GetRequiredService<T>(this ViewHandler handler)
+		public static T GetRequiredService<T>(this IViewHandler handler)
 			where T : notnull
 		{
 			var services = handler.GetServiceProvider();
