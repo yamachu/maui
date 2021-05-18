@@ -16,18 +16,10 @@
     <Compile Remove="Renderers\LocalizedDigitsKeyListener.cs" />
   </ItemGroup>
   <ItemGroup>
-    <AndroidResource Include="Resources\anim\enterfromleft.xml" />
-    <AndroidResource Include="Resources\anim\enterfromright.xml" />
-    <AndroidResource Include="Resources\anim\exittoleft.xml" />
-    <AndroidResource Include="Resources\anim\exittoright.xml" />
     <AndroidResource Include="Resources\values\**\*" />
     <Compile Remove="Anticipator.cs" />
   </ItemGroup>
   <ItemGroup>
-    <AndroidResource Include="Resources\layout\bottomtablayout.axml" />
-    <AndroidResource Include="Resources\layout\flyoutcontent.axml" />
-    <AndroidResource Include="Resources\layout\rootlayout.axml" />
-    <AndroidResource Include="Resources\layout\shellcontent.axml" />
     <AndroidResource Include="Resources\layout\tabbar.axml" />
     <AndroidResource Include="Resources\layout\toolbar.axml" />
   </ItemGroup>
