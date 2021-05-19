@@ -103,6 +103,17 @@ namespace Maui.Controls.Sample.Pages
 				}
 			);
 
+			var tapGestureRecognizer = new TapGestureRecognizer
+			{
+				Command = new Command(async () =>
+				{
+					await Navigation.PushAsync(new SemanticsPage());
+				})
+			};
+			var navigateLabel = new Label { BackgroundColor = Colors.PaleGreen, Text = "Tap to Navigate" };
+			navigateLabel.GestureRecognizers.Add(tapGestureRecognizer);
+			verticalStack.Add(navigateLabel);
+
 			verticalStack.Add(new Label { Text = "This should have padding", Padding = new Thickness(40), BackgroundColor = Colors.LightBlue });
 			verticalStack.Add(new Label { Text = LoremIpsum });
 			verticalStack.Add(new Label { Text = LoremIpsum, MaxLines = 2 });

@@ -10,6 +10,7 @@ using Microsoft.Maui.Graphics;
 
 namespace Microsoft.Maui.Controls.Compatibility.Platform.Android
 {
+	[PortHandler("Partially ported")]
 	internal class GestureManager : IDisposable
 	{
 		IVisualElementRenderer _renderer;
@@ -155,9 +156,9 @@ namespace Microsoft.Maui.Controls.Compatibility.Platform.Android
 				new TapGestureHandler(() => View, () =>
 				{
 					if (Element is View view)
-						return view.GetChildElements(Point.Zero) ?? new List<GestureElement>();
+						return view.GetChildElements(Point.Zero) ?? new List<IGestureView>();
 
-					return new List<GestureElement>();
+					return new List<IGestureView>();
 				}),
 				new PanGestureHandler(() => View, context.FromPixels),
 				new SwipeGestureHandler(() => View, context.FromPixels),

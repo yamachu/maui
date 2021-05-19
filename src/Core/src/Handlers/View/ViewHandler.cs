@@ -64,6 +64,8 @@ namespace Microsoft.Maui.Handlers
 
 		public IView? VirtualView { get; private protected set; }
 
+		internal GestureManager? GestureManager { get; private set; }
+
 		public void SetMauiContext(IMauiContext mauiContext) => MauiContext = mauiContext;
 
 		public abstract void SetVirtualView(IView view);
@@ -76,8 +78,17 @@ namespace Microsoft.Maui.Handlers
 
 		public abstract void NativeArrange(Rectangle frame);
 
+		partial void ConnectingHandler(NativeView? nativeView);
+
 		private protected void ConnectHandler(NativeView? nativeView)
 		{
+			if (VirtualView is IGestureController)
+			{
+				GestureManager = new GestureManager();
+				GestureManager.SetViewHandler(this);
+			}
+
+			ConnectingHandler(nativeView);
 		}
 
 		partial void DisconnectingHandler(NativeView? nativeView);
@@ -85,6 +96,12 @@ namespace Microsoft.Maui.Handlers
 		private protected void DisconnectHandler(NativeView? nativeView)
 		{
 			DisconnectingHandler(nativeView);
+
+			if (GestureManager != null)
+			{
+				GestureManager.Dispose();
+				GestureManager = null;
+			}
 
 			if (VirtualView != null)
 				VirtualView.Handler = null;
