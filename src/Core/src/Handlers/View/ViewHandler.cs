@@ -24,9 +24,11 @@ namespace Microsoft.Maui.Handlers
 			[nameof(IView.Height)] = MapHeight,
 			[nameof(IView.IsEnabled)] = MapIsEnabled,
 			[nameof(IView.Semantics)] = MapSemantics,
-			Actions = {
-					[nameof(IFrameworkElement.InvalidateMeasure)] = MapInvalidateMeasure
-				}
+			Actions =
+			{
+				[nameof(IViewHandler.ContainerView)] = MapContainerView,
+				[nameof(IFrameworkElement.InvalidateMeasure)] = MapInvalidateMeasure,
+			}
 		};
 
 		internal ViewHandler()
@@ -59,6 +61,10 @@ namespace Microsoft.Maui.Handlers
 		public IMauiContext? MauiContext { get; private set; }
 
 		public IServiceProvider? Services => MauiContext?.Services;
+
+		public virtual bool NeedsContainer { get; }
+
+		public object? ContainerView { get; private protected set; }
 
 		public object? NativeView { get; private protected set; }
 
@@ -150,6 +156,12 @@ namespace Microsoft.Maui.Handlers
 		public static void MapInvalidateMeasure(IViewHandler handler, IView view)
 		{
 			((NativeView?)handler.NativeView)?.InvalidateMeasure(view);
+		}
+
+		public static void MapContainerView(IViewHandler handler, IView view)
+		{
+			if (handler is ViewHandler viewHandler)
+				handler.HasContainer = viewHandler.NeedsContainer;
 		}
 	}
 }
