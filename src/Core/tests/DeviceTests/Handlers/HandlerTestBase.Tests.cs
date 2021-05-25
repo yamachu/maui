@@ -30,6 +30,20 @@ namespace Microsoft.Maui.DeviceTests
 			Assert.Equal(view.FlowDirection, id);
 		}
 
+		[Theory(DisplayName = "Visibility is set correctly")]
+		[InlineData(Visibility.Collapsed)]
+		[InlineData(Visibility.Hidden)]
+		public virtual async Task SetVisibility(Visibility visibility)
+		{
+			var view = new TStub
+			{
+				Visibility = visibility
+			};
+
+			var id = await GetValueAsync(view, handler => GetVisibility(handler));
+			Assert.Equal(view.Visibility, id);
+		}
+
 		[Fact(DisplayName = "Semantic Description is set correctly")]
 		[InlineData()]
 		public async Task SetSemanticDescription()

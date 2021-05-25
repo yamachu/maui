@@ -4,6 +4,8 @@
     <RootNamespace>Microsoft.Maui.Controls</RootNamespace>
     <AssemblyName>Microsoft.Maui.Controls</AssemblyName>
     <Nullable>disable</Nullable>
+    <NoWarn>$(NoWarn);NU5128</NoWarn>
+    <_MauiDesignDllBuild Condition=" '$(OS)' != 'Unix' And '$(MSBuildRuntimeType)' == 'Full'">True</_MauiDesignDllBuild>
   </PropertyGroup>
   <PropertyGroup>
     <PackageId>Microsoft.Maui.Controls</PackageId>
@@ -24,5 +26,21 @@
     <PropertyGroup>
       <TargetPlatformIdentifierAdjusted>UAP</TargetPlatformIdentifierAdjusted>
     </PropertyGroup>
+  </Target>
+
+
+  <PropertyGroup Condition=" '$(_MauiDesignDllBuild)' == 'True' ">
+    <TargetsForTfmSpecificBuildOutput>$(TargetsForTfmSpecificBuildOutput);_MauiPackXamlDesignAssemblies</TargetsForTfmSpecificBuildOutput>
+  </PropertyGroup>
+
+  <Target Name="_MauiPackXamlDesignAssemblies">
+    <ItemGroup>
+      <BuildOutputInPackage Include="..\Core.Design\bin\$(Configuration)\net472\Microsoft.Maui.Controls.DesignTools.dll">
+        <TargetPath>Design\Microsoft.Maui.Controls.DesignTools.dll</TargetPath>
+      </BuildOutputInPackage>
+      <BuildOutputInPackage Include="..\Core.Design\bin\$(Configuration)\net472\Microsoft.Maui.Controls.DesignTools.pdb">
+        <TargetPath>Design\Microsoft.Maui.Controls.DesignTools.pdb</TargetPath>
+      </BuildOutputInPackage>
+    </ItemGroup>
   </Target>
 </Project>
