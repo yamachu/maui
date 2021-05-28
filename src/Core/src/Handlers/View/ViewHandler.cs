@@ -20,7 +20,6 @@ namespace Microsoft.Maui.Handlers
 			[nameof(IView.AutomationId)] = MapAutomationId,
 			[nameof(IView.Visibility)] = MapVisibility,
 			[nameof(IView.Background)] = MapBackground,
-			[nameof(IView.BackgroundColor)] = MapBackgroundColor,
 			[nameof(IView.FlowDirection)] = MapFlowDirection,
 			[nameof(IView.Width)] = MapWidth,
 			[nameof(IView.Height)] = MapHeight,
