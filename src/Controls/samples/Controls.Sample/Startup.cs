@@ -27,6 +27,9 @@ using Microsoft.AspNetCore.Components.WebView.Maui;
 
 namespace Maui.Controls.Sample
 {
+
+	public class CustomButton : Button { }
+
 	public class Startup : IStartup
 	{
 		public readonly static bool UseXamlApp = true;
