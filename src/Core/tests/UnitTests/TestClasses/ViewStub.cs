@@ -46,6 +46,26 @@ namespace Microsoft.Maui.UnitTests
 
 		public IList<IGestureRecognizer> CompositeGestureRecognizers { get; set; }
 
+		public double TranslationX { get; set; }
+
+		public double TranslationY { get; set; }
+
+		public double Scale { get; set; }
+
+		public double ScaleX { get; set; }
+
+		public double ScaleY { get; set; }
+
+		public double Rotation { get; set; }
+
+		public double RotationX { get; set; }
+
+		public double RotationY { get; set; }
+
+		public double AnchorX { get; set; }
+
+		public double AnchorY { get; set; }
+
 		public Size Arrange(Rectangle bounds) => Size.Zero;
 
 		public IList<IGestureView> GetChildElements(Point point) => null;
