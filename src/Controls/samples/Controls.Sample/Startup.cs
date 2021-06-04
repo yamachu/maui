@@ -7,11 +7,9 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using Maui.Controls.Sample.Pages;
 using Maui.Controls.Sample.Services;
-using Maui.Controls.Sample.ViewModels;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.DependencyInjection.Extensions;
 using Microsoft.Maui;
 using Microsoft.Maui.Controls.Compatibility;
 using Microsoft.Maui.Controls.Hosting;
@@ -20,34 +18,40 @@ using Microsoft.Maui.Hosting;
 using Microsoft.Maui.LifecycleEvents;
 using Microsoft.Maui.Controls;
 using Maui.Controls.Sample.Controls;
+using Maui.Controls.Sample.ViewModels;
 
-#if NET6_0_OR_GREATER
+#if BLAZOR_ENABLED
 using Microsoft.AspNetCore.Components.WebView.Maui;
 #endif
 
 namespace Maui.Controls.Sample
 {
-
 	public class CustomButton : Button { }
 
 	public class Startup : IStartup
 	{
-		public readonly static bool UseXamlApp = true;
 		public readonly static bool UseFullDI = false;
 
 		public void Configure(IAppHostBuilder appBuilder)
 		{
-			bool useFullDIAndBlazor = UseFullDI || _pageType == PageType.Blazor;
-
 			appBuilder
 				.UseFormsCompatibility()
 				.UseMauiControlsHandlers()
-				.UseMauiApp<App>();
+				.ConfigureMauiHandlers(handlers =>
+				{
+#if __ANDROID__
+					handlers.AddCompatibilityRenderer(typeof(CustomButton),
+						typeof(Microsoft.Maui.Controls.Compatibility.Platform.Android.AppCompat.ButtonRenderer));
+#elif __IOS__
+					handlers.AddCompatibilityRenderer(typeof(CustomButton),
+						typeof(Microsoft.Maui.Controls.Compatibility.Platform.iOS.ButtonRenderer));
+#elif WINDOWS
+					handlers.AddCompatibilityRenderer(typeof(CustomButton),
+						typeof(Microsoft.Maui.Controls.Compatibility.Platform.UWP.ButtonRenderer));
+#endif
+				});
 
-			if (UseFullDI)
-				appBuilder.UseServiceProviderFactory(new DIExtensionsServiceProviderFactory());
-			else
-				appBuilder.UseMauiServiceProviderFactory(true);
+			appBuilder.UseMauiApp<App>();
 
 			// Use a "third party" library that brings in a massive amount of controls
 			appBuilder.UseRed();
@@ -69,7 +73,7 @@ namespace Maui.Controls.Sample
 					});
 				});
 
-			if (useFullDIAndBlazor)
+			if (UseFullDI)
 			{
 #if BLAZOR_ENABLED
 				appBuilder
@@ -86,7 +90,7 @@ namespace Maui.Controls.Sample
 				.ConfigureServices(services =>
 				{
 					// The MAUI DI does not support generic argument resolution
-					if (useFullDIAndBlazor)
+					if (UseFullDI)
 					{
 						services.AddLogging(logging =>
 						{
@@ -100,7 +104,10 @@ namespace Maui.Controls.Sample
 
 					services.AddSingleton<ITextService, TextService>();
 					services.AddTransient<MainViewModel>();
-
+#if BLAZOR_ENABLED
+					if (UseFullDI)
+						services.AddBlazorWebView();
+#endif
 					services.AddTransient(
 						serviceType: typeof(Page),
 						implementationType: typeof(CustomNavigationPage));
