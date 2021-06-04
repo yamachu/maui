@@ -13,6 +13,14 @@ namespace Microsoft.Maui.Controls.Hosting
 		{
 			{ typeof(NavigationPage), typeof(NavigationPageHandler) },
 			{ typeof(Shell), typeof(ShellHandler) },
+#if __ANDROID__
+			{ typeof(Button), typeof(Controls.Handlers.ButtonHandler) },
+			{ typeof(Layout2.Layout), typeof(Controls.Handlers.LayoutHandler) },
+			{ typeof(ILayout), typeof(Controls.Handlers.LayoutHandler) },
+			{ typeof(VerticalStackLayout), typeof(Controls.Handlers.LayoutHandler) },
+			{ typeof(HorizontalStackLayout), typeof(Controls.Handlers.LayoutHandler) },
+			{ typeof(Label), typeof(Controls.Handlers.LabelHandler) },
+#endif
 		};
 
 		public static IAppHostBuilder UseMauiControlsHandlers(this IAppHostBuilder builder)

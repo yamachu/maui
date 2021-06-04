@@ -70,6 +70,17 @@ namespace Maui.Controls.Sample.Pages
 		void SetupMauiLayout()
 		{
 			var verticalStack = new VerticalStackLayout() { Spacing = 5, BackgroundColor = Colors.AntiqueWhite };
+
+			verticalStack.GestureRecognizers.Add(
+				new TapGestureRecognizer()
+				{
+					NumberOfTapsRequired = 1,
+					Command = new Command(() =>
+					{
+
+					})
+				});
+
 			var horizontalStack = new HorizontalStackLayout() { Spacing = 2, BackgroundColor = Colors.CornflowerBlue };
 
 			//verticalStack.Add(CreateSampleGrid());
@@ -82,6 +93,15 @@ namespace Maui.Controls.Sample.Pages
 			verticalStack.Add(new Label { Text = " ", Padding = new Thickness(10) });
 			var label = new Label { Text = "End-aligned text", BackgroundColor = Colors.Fuchsia, HorizontalTextAlignment = TextAlignment.End };
 			label.Margin = new Thickness(15, 10, 20, 15);
+			label.GestureRecognizers.Add(
+				new TapGestureRecognizer()
+				{
+					NumberOfTapsRequired = 1,
+					Command = new Command(() =>
+					{
+
+					})
+				});
 
 			SemanticProperties.SetHint(label, "Hint Text");
 			SemanticProperties.SetDescription(label, "Description Text");
