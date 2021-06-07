@@ -239,7 +239,7 @@ namespace Maui.Controls.Sample.Pages
 			verticalStack.Add(new Entry { Placeholder = "This is a blue text box", BackgroundColor = Colors.CornflowerBlue });
 
 			verticalStack.Add(new GraphicsView { Drawable = new TestDrawable(), HeightRequest = 50, WidthRequest = 200 }); ;
-			
+
 			verticalStack.Add(new ProgressBar { Progress = 0.5 });
 			verticalStack.Add(new ProgressBar { Progress = 0.5, BackgroundColor = Colors.LightCoral });
 			verticalStack.Add(new ProgressBar { Progress = 0.5, ProgressColor = Colors.Purple });
@@ -305,6 +305,29 @@ namespace Maui.Controls.Sample.Pages
 				TextColor = Colors.White,
 				FontSize = 24,
 				ClipShape = new Microsoft.Maui.Controls.Shapes2.Ellipse()
+			});
+
+			verticalStack.Add(new Label { Text = "Shadow" });
+			verticalStack.Add(new Image
+			{
+				HeightRequest = 120,
+				WidthRequest = 120,
+				Source = new FontImageSource { FontFamily = "Ionicons", Glyph = "\uf2fe" },
+				BackgroundColor = Color.FromUint(0xFF512BD4),
+				Aspect = Aspect.Center,
+				Shadow = new Shadow { Offset = new Size(10, 10), Opacity = 0.9f, Color = Colors.Purple, Radius = 6 }
+			});
+
+			verticalStack.Add(new Label { Text = "Shadow + ClipShape" });
+			verticalStack.Add(new Image
+			{
+				HeightRequest = 120,
+				WidthRequest = 120,
+				Source = new FontImageSource { FontFamily = "Ionicons", Glyph = "\uf2fe" },
+				BackgroundColor = Color.FromUint(0xFF512BD4),
+				Aspect = Aspect.Center,
+				ClipShape = new Microsoft.Maui.Controls.Shapes2.Ellipse(),
+				Shadow = new Shadow { Offset = new Size(10, 10), Opacity = 0.9f, Color = Colors.Purple, Radius = 6 }
 			});
 
 			Content = new ScrollView

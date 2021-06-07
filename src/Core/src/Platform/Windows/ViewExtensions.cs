@@ -59,8 +59,13 @@ namespace Microsoft.Maui
 			var geometricClip = compositor.CreateGeometricClip(pathGeometry);
 
 			visual.Clip = geometricClip;
-    }
-    
+		}
+
+		public static void UpdateShadow(this FrameworkElement nativeView, IView view)
+		{
+
+		}
+
 		public static void UpdateOpacity(this FrameworkElement nativeView, IView view)
 		{
 			nativeView.Opacity = view.Visibility == Visibility.Hidden ? 0 : view.Opacity;

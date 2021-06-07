@@ -19,6 +19,7 @@ namespace Microsoft.Maui.Handlers
 		{
 			[nameof(IView.AutomationId)] = MapAutomationId,
 			[nameof(IView.ClipShape)] = MapClipShape,
+			[nameof(IView.Shadow)] = MapShadow,
 			[nameof(IView.Visibility)] = MapVisibility,
 			[nameof(IView.Background)] = MapBackground,
 			[nameof(IView.Width)] = MapWidth,
@@ -166,6 +167,26 @@ namespace Microsoft.Maui.Handlers
 			}
 
 			((WrapperView?)handler.ContainerView)?.UpdateClipShape(view);
+#endif
+		}
+		
+		public static void MapShadow(IViewHandler handler, IView view)
+		{
+			var shadow = view.Shadow;
+#if WINDOWS
+			((NativeView?)handler.ContainerView)?.UpdateShadow(view);
+#else
+			if (!shadow.IsEmpty)
+			{
+				handler.HasContainer = true;
+			}
+			else
+			{
+				if (handler is ViewHandler viewHandler)
+					handler.HasContainer = viewHandler.NeedsContainer;
+			}
+
+			((NativeView?)handler.ContainerView)?.UpdateShadow(view);
 #endif
 		}
 

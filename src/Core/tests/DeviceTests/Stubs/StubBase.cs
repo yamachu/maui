@@ -22,6 +22,8 @@ namespace Microsoft.Maui.DeviceTests.Stubs
 
 		public IShape ClipShape { get; set; }
 
+		public Shadow Shadow { get; set; } = Shadow.Zero;
+
 		public IFrameworkElement Parent { get; set; }
 
 		public Size DesiredSize { get; set; } = new Size(50, 50);

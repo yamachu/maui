@@ -5,6 +5,7 @@ namespace Microsoft.Maui
 	public partial class WrapperView
 	{
 		IShape? _clipShape;
+		Shadow? _shadow;
 
 		public IShape? ClipShape
 		{
@@ -19,6 +20,17 @@ namespace Microsoft.Maui
 			}
 		}
 
+		public Shadow? Shadow
+		{
+			get => _shadow;
+			set
+			{
+				_shadow = value;
+				ShadowChanged();
+			}
+		}
+
 		partial void ClipShapeChanged();
+		partial void ShadowChanged();
 	}
 }

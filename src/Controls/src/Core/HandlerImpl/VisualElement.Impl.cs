@@ -36,6 +36,8 @@ namespace Microsoft.Maui.Controls
 
 		public IShape ClipShape { get; set; }
 
+		public Shadow Shadow { get; set; }
+
 		protected override void OnPropertyChanged([CallerMemberName] string propertyName = null)
 		{
 			base.OnPropertyChanged(propertyName);

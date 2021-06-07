@@ -1,4 +1,5 @@
-﻿using CoreAnimation;
+﻿using System.Linq;
+using CoreAnimation;
 using CoreGraphics;
 using Microsoft.Maui.Graphics;
 using Microsoft.Maui.Graphics.Native;
@@ -8,6 +9,8 @@ namespace Microsoft.Maui
 {
 	public partial class WrapperView : UIView
 	{
+		CAShapeLayer? _maskLayer;
+		CAShapeLayer? _shadowLayer;
 		SizeF _lastMaskSize;
 
 		public WrapperView()
@@ -19,10 +22,34 @@ namespace Microsoft.Maui
 		{
 		}
 
-		CAShapeLayer? Mask
+		public CAShapeLayer? MaskLayer
 		{
-			get => Layer.Mask as CAShapeLayer;
-			set => Layer.Mask = value;
+			get => _maskLayer;
+			set
+			{
+				var layer = GetBackgroundLayer();
+
+				if (layer != null && _maskLayer != null)
+					layer.Mask = null;
+
+				_maskLayer = value;
+
+				if (layer != null)
+					layer.Mask = value;
+			}
+		}
+
+		public CAShapeLayer? ShadowLayer
+		{
+			get => _shadowLayer;
+			set
+			{
+				_shadowLayer?.RemoveFromSuperLayer();
+				_shadowLayer = value;
+
+				if (_shadowLayer != null)
+					Layer.InsertSublayer(_shadowLayer, 0);
+			}
 		}
 
 		public override void LayoutSubviews()
@@ -36,10 +63,13 @@ namespace Microsoft.Maui
 
 			child.Frame = Bounds;
 
-			if (Mask != null)
-				Mask.Frame = Bounds;
+			if (MaskLayer != null)
+				MaskLayer.Frame = Bounds;
 
-			SetClipShape();
+			if (ShadowLayer != null)
+				ShadowLayer.Frame = Bounds;
+
+			UpdateLayers();
 		}
 
 		public override CGSize SizeThatFits(CGSize size)
@@ -67,14 +97,22 @@ namespace Microsoft.Maui
 				return;
 		}
 
-		void SetClipShape()
+		partial void ShadowChanged()
 		{
-			var mask = Mask;
+			_lastMaskSize = SizeF.Zero;
+
+			if (Frame == CGRect.Empty)
+				return;
+		}
+
+		void UpdateLayers()
+		{
+			var mask = MaskLayer;
 
 			if (mask == null && ClipShape == null)
 				return;
 
-			mask ??= Mask = new CAShapeLayer();
+			mask ??= MaskLayer = new CAShapeLayer();
 			var frame = Frame;
 			var bounds = new RectangleF(0, 0, (float)frame.Width, (float)frame.Height);
 
@@ -82,8 +120,29 @@ namespace Microsoft.Maui
 				return;
 
 			_lastMaskSize = bounds.Size;
-			var path = _clipShape?.PathForBounds(bounds);
-			mask.Path = path?.AsCGPath();
+			var pathForBounds = _clipShape?.PathForBounds(bounds);
+			var nativePath = pathForBounds?.AsCGPath();
+			mask.Path = nativePath;
+
+			var shadowLayer = ShadowLayer;
+
+			if (shadowLayer == null && Shadow != null && Shadow.Value.IsEmpty)
+				return;
+
+			shadowLayer ??= ShadowLayer = new CAShapeLayer();
+			shadowLayer.FillColor = new CGColor(0, 0, 0, 1);
+			shadowLayer.Path = nativePath;
+			
+			if (Shadow!.Value.IsEmpty)
+				shadowLayer.ClearShadow();
+			else
+				shadowLayer.SetShadow(Shadow!.Value);
+		}
+
+		CALayer? GetBackgroundLayer()
+		{
+			return Layer.Sublayers
+				.FirstOrDefault(l => l.Name == ViewExtensions.BackgroundLayerName);
 		}
 	}
 }

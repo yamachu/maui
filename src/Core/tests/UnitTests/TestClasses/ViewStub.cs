@@ -11,6 +11,8 @@ namespace Microsoft.Maui.UnitTests
 
 		public IShape ClipShape { get; set; }
 
+		public Shadow Shadow { get; set; }
+
 		public double Opacity { get; set; }
 
 		public Rectangle Frame { get; set; }
