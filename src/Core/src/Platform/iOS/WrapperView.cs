@@ -141,7 +141,7 @@ namespace Microsoft.Maui
 
 		CALayer? GetBackgroundLayer()
 		{
-			return Layer.Sublayers
+			return Layer?.Sublayers?
 				.FirstOrDefault(l => l.Name == ViewExtensions.BackgroundLayerName);
 		}
 	}
