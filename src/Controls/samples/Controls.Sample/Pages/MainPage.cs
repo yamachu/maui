@@ -32,12 +32,25 @@ namespace Maui.Controls.Sample.Pages
 			_services = services;
 			BindingContext = _viewModel = viewModel;
 
-			SetupMauiLayout();
+			//SetupMauiLayout();
+			SetupThing();
 
 			NavigationPage.SetHasNavigationBar(this, false);
 
 			//SetupCompatibilityLayout();
 			//SetupVisibilityTest();
+		}
+
+		private void SetupThing()
+		{
+			var verticalStack = new VerticalStackLayout() { Spacing = 5, BackgroundColor = Colors.AntiqueWhite };
+			
+			verticalStack.Add(new Label { Text = "This is <strong>HTML</strong> text.", TextType = TextType.Html });
+			//verticalStack.Add(new Label { Text = "This is <strong>HTML</strong> text.", TextType = TextType.Html });
+			//verticalStack.Add(new Label { Text = "This is <strong>HTML</strong> text.", TextType = TextType.Html });
+			//verticalStack.Add(new Label { Text = "This is <strong>HTML</strong> text.", TextType = TextType.Html });
+
+			Content = verticalStack;
 		}
 
 		public class VisibilityLabel : Label, IFrameworkElement
@@ -109,7 +122,7 @@ namespace Maui.Controls.Sample.Pages
 			verticalStack.Add(new Label { Text = LoremIpsum, LineBreakMode = LineBreakMode.TailTruncation });
 			verticalStack.Add(new Label { Text = LoremIpsum, MaxLines = 2, LineBreakMode = LineBreakMode.TailTruncation });
 			verticalStack.Add(new Label { Text = "This should have five times the line height! " + LoremIpsum, LineHeight = 5, MaxLines = 2 });
-      verticalStack.Add(new Label { Text = "This is <strong>HTML</strong> text.", TextType = TextType.Html });
+			verticalStack.Add(new Label { Text = "This is <strong>HTML</strong> text.", TextType = TextType.Html });
 			verticalStack.Add(new Label
 			{
 				FontSize = 24,

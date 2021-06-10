@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using Controls.Core.Handlers;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Maui.Controls.Handlers;
@@ -13,6 +14,7 @@ namespace Microsoft.Maui.Controls.Hosting
 		{
 			{ typeof(NavigationPage), typeof(NavigationPageHandler) },
 			{ typeof(Shell), typeof(ShellHandler) },
+			{ typeof(Label), typeof(LabelHandler) }
 		};
 
 		public static IAppHostBuilder UseMauiControlsHandlers(this IAppHostBuilder builder)
