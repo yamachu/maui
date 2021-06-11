@@ -108,7 +108,7 @@ namespace Microsoft.Maui.Controls.Compatibility.Platform.Android
 
 			if (context is AppCompatActivity activity)
 			{
-				if(activity.SupportActionBar != null)
+				if (activity.SupportActionBar != null)
 					return activity.SupportActionBar.ThemedContext;
 
 				return context;
@@ -131,6 +131,17 @@ namespace Microsoft.Maui.Controls.Compatibility.Platform.Android
 				return fa.SupportFragmentManager;
 
 			return null;
+		}
+
+		public static (int left, int top, int right, int bottom) ToPixels(this Context context, Graphics.Rectangle rectangle) 
+		{
+			return 
+			(
+				(int)context.ToPixels(rectangle.Left),
+				(int)context.ToPixels(rectangle.Top),
+				(int)context.ToPixels(rectangle.Right),
+				(int)context.ToPixels(rectangle.Bottom)
+			);
 		}
 	}
 }
