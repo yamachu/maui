@@ -1,6 +1,5 @@
 using System;
 using System.Collections.Generic;
-using Controls.Core.Handlers;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Maui.Controls.Handlers;
@@ -25,7 +24,7 @@ namespace Microsoft.Maui.Controls.Hosting
 			{ typeof(Entry), typeof(EntryHandler) },
 			{ typeof(GraphicsView), typeof(GraphicsViewHandler) },
 			{ typeof(Image), typeof(ImageHandler) },
-			{ typeof(Label), typeof(Microsoft.Maui.Controls.Core.Handlers.LabelHandler) },
+			{ typeof(Label), typeof(Microsoft.Maui.Controls.Handlers.LabelHandler) },
 			{ typeof(Layout), typeof(LayoutHandler) },
 			{ typeof(Layout2.Layout), typeof(LayoutHandler) },
 			{ typeof(Picker), typeof(PickerHandler) },
