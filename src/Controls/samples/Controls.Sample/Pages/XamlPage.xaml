@@ -6,11 +6,11 @@
                    BackgroundColor="#512bdf"
                    >
 
-    <ScrollView Padding="{OnPlatform iOS='30,60,30,30', Default='30'}">
+    <!--<ScrollView Padding="{OnPlatform iOS='30,60,30,30', Default='30'}">-->
         <StackLayout>
-            <Grid RowSpacing="25" RowDefinitions="Auto,Auto,Auto,Auto,*">
+        <!--<Grid RowSpacing="25" RowDefinitions="Auto,Auto,Auto,Auto,*">-->
 
-                <Label Text="Hello, World!"
+            <Label Text="Hello, World!"
                     Grid.Row="0"
                     SemanticProperties.HeadingLevel="Level1"
                     FontSize="32"
@@ -36,15 +36,20 @@
                     Clicked="OnCounterClicked"
                     HorizontalOptions="Center" />
 
-                <Image Grid.Row="4"
+            <Image Grid.Row="4"
+                    Source="dotnet_bot.png"
+                       
+                     />
+
+            <!--<Image Grid.Row="4"
                     Source="dotnet_bot.png"
                     SemanticProperties.Description="Cute dotnet bot waving hi to you!"
-                    WidthRequest="300"
-                    HorizontalOptions="Center" />
+                    WidthRequest="300" HeightRequest="300"
+                    HorizontalOptions="Center" />-->
 
-            </Grid>
-        </StackLayout>
-    </ScrollView>
+        <!--</Grid>-->
+    </StackLayout>
+    <!--</ScrollView>-->
 
 
 </controls:BasePage>

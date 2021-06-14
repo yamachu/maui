@@ -31,27 +31,27 @@ namespace Microsoft.Maui
 
 		public static void UpdateAspect(this WImage imageView, IImage image)
 		{
-			imageView.Stretch = image.Aspect.ToStretch();
+			//imageView.Stretch = image.Aspect.ToStretch();
 		}
 
 		public static void UpdateIsAnimationPlaying(this WImage imageView, IImageSourcePart image)
 		{
-			if (!IsAnimationSupported)
-				return;
+			//if (!IsAnimationSupported)
+			//	return;
 
-			if (imageView.Source is BitmapImage bitmapImage && bitmapImage.IsAnimatedBitmap)
-			{
-				if (image.IsAnimationPlaying)
-				{
-					if (!bitmapImage.IsPlaying)
-						bitmapImage.Play();
-				}
-				else
-				{
-					if (bitmapImage.IsPlaying)
-						bitmapImage.Stop();
-				}
-			}
+			//if (imageView.Source is BitmapImage bitmapImage && bitmapImage.IsAnimatedBitmap)
+			//{
+			//	if (image.IsAnimationPlaying)
+			//	{
+			//		if (!bitmapImage.IsPlaying)
+			//			bitmapImage.Play();
+			//	}
+			//	else
+			//	{
+			//		if (bitmapImage.IsPlaying)
+			//			bitmapImage.Stop();
+			//	}
+			//}
 		}
 
 		public static async Task<IImageSourceServiceResult<WImageSource>?> UpdateSourceAsync(this WImage imageView, IImageSourcePart image, IImageSourceServiceProvider services, CancellationToken cancellationToken = default)

@@ -5,6 +5,7 @@ using Microsoft.Maui.Controls.Compatibility.Platform.UWP;
 using Microsoft.UI.Xaml;
 using Microsoft.Maui.Graphics;
 using Microsoft.Maui.Controls.Platform;
+using Microsoft.Maui.Handlers;
 
 namespace Microsoft.Maui.Controls.Compatibility
 {
@@ -13,9 +14,29 @@ namespace Microsoft.Maui.Controls.Compatibility
 		public HandlerToRendererShim(IViewHandler vh)
 		{
 			ViewHandler = vh;
+
+#if WINDOWS
+			//Microsoft.Maui.Handlers.ViewHandler.ViewMapper.Actions[nameof(IFrameworkElement.InvalidateMeasure)] = MapInvalidateMeasure;
+#endif
 		}
 
 		IViewHandler ViewHandler { get; }
+
+#if WINDOWS
+		//public void MapInvalidateMeasure(ViewHandler handler, IView view)
+		//{
+		//	Microsoft.Maui.Handlers.ViewHandler.MapInvalidateMeasure(handler, view);
+
+		//	if (view is IViewController element)
+		//	{
+		//		element?.InvalidateMeasure(InvalidationTrigger.RendererReady);
+		//	}
+
+
+
+		//	//((FrameworkElement)handler.NativeView)?.InvalidateMeasure(view);
+		//}
+#endif
 
 		public VisualElement Element { get; private set; }
 

@@ -17,7 +17,7 @@ namespace Maui.Controls.Sample.Pages
 		private void OnCounterClicked(object sender, EventArgs e)
 		{
 			count++;
-			CounterLabel.Text = $"Current count: {count}";
+			//CounterLabel.Text = $"Current count: {count}";
 		}
 	}
 }
