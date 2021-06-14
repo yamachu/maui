@@ -37,7 +37,7 @@ namespace Microsoft.Maui
 			var activationState = new ActivationState(mauiContext, args);
 			var window = Application.CreateWindow(activationState);
 
-			var content = (window.View as IView);
+			var content = window.View;
 
 			var canvas = CreateRootContainer();
 
@@ -51,17 +51,15 @@ namespace Microsoft.Maui
 
 			MainWindow.SizeChanged += (sender, sizeChangedArgs) =>
 			{
-				// TODO ezhart We need a better signalling mechanism between the PagePanel and the ContentPage for invalidation
+				// TODO ezhart We need a better signalling mechanism between the RootPanel and the ContentPage for invalidation
 				content.InvalidateMeasure();
 
-				// TODO ezhart This is not ideal, but we need to force the canvas to match the window size
-				// We probably need a better root control than Canvas, really
+				// TODO ezhart This is not ideal, but we need to force the root panel size to match the window size
 				canvas.Width = MainWindow.Bounds.Width;
 				canvas.Height = MainWindow.Bounds.Height;
 
 				// TODO ezhart Once we've got navigation up and running, this will need to be updated so it 
-				// affects the navigation root or the current page. Again, Canvas is probably not the right root, but
-				// I haven't been able to get a custom Panel to handle the drawing correctly yet.
+				// affects the navigation root or the current page. 
 				nativeContent.Width = canvas.ActualWidth;
 				nativeContent.Height = canvas.ActualHeight;
 			};
@@ -69,15 +67,15 @@ namespace Microsoft.Maui
 			MainWindow.Activate();
 		}
 
-		Canvas CreateRootContainer()
+		RootPanel CreateRootContainer()
 		{
 			// TODO WINUI should this be some other known constant or via some mechanism? Or done differently?
-			Resources.TryGetValue("RootContainerStyle", out object style);
-
-			return new Canvas
-			{
-				Style = style as UI.Xaml.Style
-			};
+			return Resources.TryGetValue("MauiRootContainerStyle", out object style)
+				? new RootPanel
+				{
+					Style = style as UI.Xaml.Style
+				}
+				: new RootPanel();
 		}
 
 		void ConfigureNativeServices(HostBuilderContext ctx, IServiceCollection services)
