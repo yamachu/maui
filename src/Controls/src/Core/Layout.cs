@@ -523,13 +523,13 @@ namespace Microsoft.Maui.Controls
 		{
 			if (CloseEnough(bounds, Bounds))
 			{
-				UpdateChildrenLayout();
-				return bounds.Size;
+				
+					UpdateChildrenLayout();
+				
 			}
-			else
-			{
-				return base.ArrangeOverride(bounds);
-			}
+			
+			return base.ArrangeOverride(bounds);
+			
 		}
 	}
 }
