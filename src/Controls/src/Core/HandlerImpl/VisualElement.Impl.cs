@@ -62,7 +62,7 @@ namespace Microsoft.Maui.Controls
 			return (Math.Abs(a - b) < tolerance);
 		}
 
-		bool CloseEnough(Rectangle currentBounds, Rectangle newBounds)
+		protected bool CloseEnough(Rectangle currentBounds, Rectangle newBounds)
 		{
 			if (!CloseEnough(currentBounds.X, newBounds.X))
 			{

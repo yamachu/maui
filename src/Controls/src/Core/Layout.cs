@@ -518,5 +518,18 @@ namespace Microsoft.Maui.Controls
 				}
 			}
 		}
+
+		protected override Size ArrangeOverride(Rectangle bounds)
+		{
+			if (CloseEnough(bounds, Bounds))
+			{
+				UpdateChildrenLayout();
+				return bounds.Size;
+			}
+			else
+			{
+				return base.ArrangeOverride(bounds);
+			}
+		}
 	}
 }
