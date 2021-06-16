@@ -6,6 +6,7 @@ using System.Reflection;
 using Microsoft.Maui.Controls.Compatibility.Platform.UWP;
 using Microsoft.Maui.Controls.Internals;
 using Microsoft.Maui.Graphics;
+using Microsoft.UI.Dispatching;
 using Microsoft.UI.Xaml;
 using Windows.ApplicationModel.Activation;
 using WSolidColorBrush = Microsoft.UI.Xaml.Media.SolidColorBrush;
@@ -127,7 +128,7 @@ namespace Microsoft.Maui.Controls.Compatibility
 
 			Registrar.ExtraAssemblies = rendererAssemblies?.ToArray();
 
-			var dispatcher = mainWindow?.DispatcherQueue ?? System.DispatcherQueue.GetForCurrentThread();
+			var dispatcher = mainWindow?.DispatcherQueue ?? DispatcherQueue.GetForCurrentThread();
 
 			var platformServices = new WindowsPlatformServices(dispatcher);
 

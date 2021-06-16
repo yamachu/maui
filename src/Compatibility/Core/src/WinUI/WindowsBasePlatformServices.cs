@@ -23,20 +23,17 @@ using Microsoft.UI.Xaml.Media;
 using Microsoft.Maui.Controls.Internals;
 using IOPath = System.IO.Path;
 using Microsoft.Maui.Graphics;
+using DispatcherQueue = Microsoft.UI.Dispatching.DispatcherQueue;
 
 namespace Microsoft.Maui.Controls.Compatibility.Platform.UWP
 {
 	internal abstract class WindowsBasePlatformServices : IPlatformServices, IPlatformInvalidate
 	{
 		const string WrongThreadError = "RPC_E_WRONG_THREAD";
-#pragma warning disable CS8305 // Type is for evaluation purposes only and is subject to change or removal in future updates.
-		readonly Microsoft.System.DispatcherQueue _dispatcher;
-#pragma warning restore CS8305 // Type is for evaluation purposes only and is subject to change or removal in future updates.
+		readonly DispatcherQueue _dispatcher;
 		readonly UISettings _uiSettings = new UISettings();
 
-#pragma warning disable CS8305 // Type is for evaluation purposes only and is subject to change or removal in future updates.
-		protected WindowsBasePlatformServices(Microsoft.System.DispatcherQueue dispatcher)
-#pragma warning restore CS8305 // Type is for evaluation purposes only and is subject to change or removal in future updates.
+		protected WindowsBasePlatformServices(DispatcherQueue dispatcher)
 		{
 			_dispatcher = dispatcher ?? throw new ArgumentNullException(nameof(dispatcher));
 			_uiSettings.ColorValuesChanged += UISettingsColorValuesChanged;
