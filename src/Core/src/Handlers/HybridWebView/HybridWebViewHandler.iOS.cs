@@ -84,7 +84,7 @@ namespace Microsoft.Maui.Handlers
 		{
 			base.ConnectHandler(platformView);
 
-			using var nsUrl = new NSUrl(new Uri(AppOriginUri, "/").ToString());
+			using var nsUrl = new NSUrl(VirtualView.RelativeSource!, new NSUrl(AppOriginUri.ToString()));
 			using var request = new NSUrlRequest(nsUrl);
 
 			platformView.LoadRequest(request);
@@ -140,8 +140,9 @@ namespace Microsoft.Maui.Handlers
 			public void StartUrlSchemeTask(WKWebView webView, IWKUrlSchemeTask urlSchemeTask)
 			{
 				var url = urlSchemeTask.Request.Url?.AbsoluteString ?? "";
-
-				var responseData = GetResponseBytes(url);
+				// Remove the hash part of the URL, as it is not needed for the file path
+				var hashTrimmedUrl = url.Split('#')[0];
+				var responseData = GetResponseBytes(hashTrimmedUrl);
 
 				if (responseData.StatusCode == 200)
 				{

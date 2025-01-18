@@ -21,6 +21,11 @@ namespace Microsoft.Maui
 		string? HybridRoot { get; }
 
 		/// <summary>
+		/// The default value is <c>/</c>.
+		/// </summary>
+		string? RelativeSource { get; }
+
+		/// <summary>
 		/// For internal use only.
 		/// </summary>
 		object? InvokeJavaScriptTarget { get; set; }
