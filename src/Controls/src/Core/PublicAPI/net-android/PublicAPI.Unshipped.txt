@@ -73,6 +73,8 @@ Microsoft.Maui.Controls.HybridWebView.DefaultFile.set -> void
 Microsoft.Maui.Controls.HybridWebView.EvaluateJavaScriptAsync(string! script) -> System.Threading.Tasks.Task<string?>!
 Microsoft.Maui.Controls.HybridWebView.HybridRoot.get -> string?
 Microsoft.Maui.Controls.HybridWebView.HybridRoot.set -> void
+Microsoft.Maui.Controls.HybridWebView.RelativeSource.get -> string?
+Microsoft.Maui.Controls.HybridWebView.RelativeSource.set -> void
 Microsoft.Maui.Controls.HybridWebView.HybridWebView() -> void
 Microsoft.Maui.Controls.HybridWebView.InvokeJavaScriptAsync<TReturnType>(string! methodName, System.Text.Json.Serialization.Metadata.JsonTypeInfo<TReturnType>! returnTypeJsonTypeInfo, object?[]? paramValues = null, System.Text.Json.Serialization.Metadata.JsonTypeInfo?[]? paramJsonTypeInfos = null) -> System.Threading.Tasks.Task<TReturnType?>!
 Microsoft.Maui.Controls.HybridWebView.RawMessageReceived -> System.EventHandler<Microsoft.Maui.Controls.HybridWebViewRawMessageReceivedEventArgs!>?
@@ -137,6 +139,7 @@ static Microsoft.Maui.Controls.ViewExtensions.InvalidateMeasure(this Microsoft.M
 static readonly Microsoft.Maui.Controls.HandlerProperties.DisconnectPolicyProperty -> Microsoft.Maui.Controls.BindableProperty!
 static readonly Microsoft.Maui.Controls.HybridWebView.DefaultFileProperty -> Microsoft.Maui.Controls.BindableProperty!
 static readonly Microsoft.Maui.Controls.HybridWebView.HybridRootProperty -> Microsoft.Maui.Controls.BindableProperty!
+static readonly Microsoft.Maui.Controls.HybridWebView.RelativeSourceProperty -> Microsoft.Maui.Controls.BindableProperty!
 static readonly Microsoft.Maui.Controls.StyleableElement.StyleProperty -> Microsoft.Maui.Controls.BindableProperty!
 static readonly Microsoft.Maui.Controls.TitleBar.ContentProperty -> Microsoft.Maui.Controls.BindableProperty!
 static readonly Microsoft.Maui.Controls.TitleBar.ForegroundColorProperty -> Microsoft.Maui.Controls.BindableProperty!

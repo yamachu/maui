@@ -19,6 +19,9 @@ namespace Microsoft.Maui.Controls
 		public static readonly BindableProperty HybridRootProperty =
 			BindableProperty.Create(nameof(HybridRoot), typeof(string), typeof(HybridWebView), defaultValue: "wwwroot");
 
+		/// <summary>Bindable property for <see cref="RelativeSource"/>.</summary>
+		public static readonly BindableProperty RelativeSourceProperty =
+			BindableProperty.Create(nameof(RelativeSource), typeof(string), typeof(HybridWebView), defaultValue: "/");
 
 		/// <inheritdoc/>
 		public string? DefaultFile
@@ -32,6 +35,13 @@ namespace Microsoft.Maui.Controls
 		{
 			get { return (string)GetValue(HybridRootProperty); }
 			set { SetValue(HybridRootProperty, value); }
+		}
+
+		/// <inheritdoc/>
+		public string? RelativeSource
+		{
+			get { return (string)GetValue(RelativeSourceProperty); }
+			set { SetValue(RelativeSourceProperty, value); }
 		}
 
 		/// <inheritdoc/>
